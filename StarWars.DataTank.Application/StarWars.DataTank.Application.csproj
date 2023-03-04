@@ -16,7 +16,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Features\Timelines\Commands\DeleteTimeline\" />
     <Folder Include="Features\Timelines\Commands\UpdateTimeline\" />
   </ItemGroup>
 
