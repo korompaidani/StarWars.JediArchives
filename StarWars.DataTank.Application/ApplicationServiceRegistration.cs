@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using StarWars.DataTank.Application.Contracts.Persistence;
 using System.Reflection;
 
 namespace StarWars.DataTank.Application
@@ -11,7 +12,6 @@ namespace StarWars.DataTank.Application
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
-
             return services;
         }
     }
