@@ -14,9 +14,5 @@
   <ItemGroup>
     <ProjectReference Include="..\StarWars.DataTank.Domain\StarWars.DataTank.Domain.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Features\Timelines\Commands\UpdateTimeline\" />
-  </ItemGroup>
 
 </Project>
