@@ -12,7 +12,7 @@ namespace StarWars.JediArchives.Persistence.Repositories
         {
         }
 
-        async public Task<List<Category>> GetCategoriesWithTimeLines()
+        public async Task<List<Category>> GetCategoriesWithTimeLines()
         {
             var allCategories = await _dbContext.Categories.Include(x => x.Timelines).ToListAsync();
             return allCategories;

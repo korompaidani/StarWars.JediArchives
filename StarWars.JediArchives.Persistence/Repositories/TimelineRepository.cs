@@ -11,7 +11,7 @@ namespace StarWars.JediArchives.Persistence.Repositories
         {
         }
 
-        async public Task<bool> IsTimelineNameUniqueAsync(string name)
+        public async Task<bool> IsTimelineNameUniqueAsync(string name)
         {
             var matches = await _dbContext.TimeLines.AnyAsync(e => e.Name.Equals(name));
             return matches;

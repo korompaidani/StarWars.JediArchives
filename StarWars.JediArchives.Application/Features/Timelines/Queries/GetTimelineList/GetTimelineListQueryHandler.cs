@@ -19,7 +19,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimeli
             _mapper = mapper;
         }
 
-        async public Task<List<TimelineListDto>> Handle(GetTimelineListQuery request, CancellationToken cancellationToken)
+        public async Task<List<TimelineListDto>> Handle(GetTimelineListQuery request, CancellationToken cancellationToken)
         {
             var timelineList = (await _timelineRepository.ListAllAsync()).OrderBy(tl => tl.StartYear);
             return _mapper.Map<List<TimelineListDto>>(timelineList);

@@ -20,7 +20,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTi
             _mapper = mapper;
         }
 
-        async public Task<Guid> Handle(CreateTimelineCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateTimelineCommand request, CancellationToken cancellationToken)
         {
             await ValidateRequestAsync(request);
 

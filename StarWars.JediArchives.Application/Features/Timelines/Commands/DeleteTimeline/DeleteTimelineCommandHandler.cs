@@ -17,7 +17,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTi
             _timelineRepository = timelineRepository;
         }
 
-        async public Task<Unit> Handle(DeleteTimelineCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteTimelineCommand request, CancellationToken cancellationToken)
         {
             var timelineTobeDeleted = await GetExistingAsync(request.TimelineId);
             await _timelineRepository.DeleteAsync(timelineTobeDeleted);

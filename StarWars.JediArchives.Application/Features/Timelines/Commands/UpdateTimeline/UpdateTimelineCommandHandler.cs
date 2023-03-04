@@ -18,7 +18,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTi
             _timelineRepository = timelineRepository;
         }
 
-        async public Task<Unit> Handle(UpdateTimelineCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateTimelineCommand request, CancellationToken cancellationToken)
         {
             await ValidateRequestAsync(request);
             var timeline = await GetExistingAsync(request.TimelineId);
