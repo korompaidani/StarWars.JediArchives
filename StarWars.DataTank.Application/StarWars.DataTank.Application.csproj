@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StarWars.DataTank.Domain\StarWars.DataTank.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
