@@ -11,8 +11,8 @@ namespace StarWars.DataTank.Application.Features.Timelines.Queries.GetTimelineLi
 {
     public class GetTimelineListQueryHandler : IRequestHandler<GetTimelineListQuery, List<TimelineListDto>>
     {
-        private IAsyncRepository<Timeline> _timelineRepository;
-        private IMapper _mapper;
+        private readonly IAsyncRepository<Timeline> _timelineRepository;
+        private readonly IMapper _mapper;
 
         public GetTimelineListQueryHandler(IAsyncRepository<Timeline> timelineRepository, IMapper mapper)
         {
