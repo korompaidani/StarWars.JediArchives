@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using StarWars.DataTank.Application.Contracts.Persistence;
+using StarWars.DataTank.Application.Exceptions;
 using StarWars.DataTank.Domain.Models;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace StarWars.DataTank.Application.Features.Timelines.Commands.UpdateTimeli
 
             if (timeline == null)
             {
-                //TODO: Throw an error if not found
+                throw new NotFoundException(nameof(Timeline), request.TimelineId);
             }
 
             await _timelineRepository.UpdateAsync(timeline);

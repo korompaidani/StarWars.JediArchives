@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using StarWars.DataTank.Application.Contracts.Persistence;
+using StarWars.DataTank.Application.Exceptions;
 using StarWars.DataTank.Domain.Models;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,11 +18,11 @@ namespace StarWars.DataTank.Application.Features.Timelines.Commands.DeleteTimeli
 
         async public Task<Unit> Handle(DeleteTimelineCommand request, CancellationToken cancellationToken)
         {
-            var timelineTobeDeleted = await _asyncRepository.GetByIdAsync(request.TimeLineId);
+            var timelineTobeDeleted = await _asyncRepository.GetByIdAsync(request.TimelineId);
             
             if (timelineTobeDeleted == null)
             {
-                //TODO throw an error in case of not found
+                throw new NotFoundException(nameof(Timeline), request.TimelineId);
             }
 
             await _asyncRepository.DeleteAsync(timelineTobeDeleted);

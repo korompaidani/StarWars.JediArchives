@@ -5,6 +5,6 @@ namespace StarWars.DataTank.Application.Features.Timelines.Commands.DeleteTimeli
 {
     public class DeleteTimelineCommand : IRequest
     {
-        public Guid TimeLineId { get; set; }
+        public Guid TimelineId { get; set; }
     }
 }
