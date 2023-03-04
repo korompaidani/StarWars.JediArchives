@@ -9,23 +9,23 @@ namespace StarWars.DataTank.Application.Features.Timelines.Commands.DeleteTimeli
 {
     public class DeleteTimelineCommandHandler : IRequestHandler<DeleteTimelineCommand>
     {
-        private readonly IAsyncRepository<Timeline> _asyncRepository;
+        private readonly ITimelineRepository _timelineRepository;
 
-        public DeleteTimelineCommandHandler(IAsyncRepository<Timeline> asyncRepository)
+        public DeleteTimelineCommandHandler(ITimelineRepository timelineRepository)
         {
-            _asyncRepository = asyncRepository;
+            _timelineRepository = timelineRepository;
         }
 
         async public Task<Unit> Handle(DeleteTimelineCommand request, CancellationToken cancellationToken)
         {
-            var timelineTobeDeleted = await _asyncRepository.GetByIdAsync(request.TimelineId);
+            var timelineTobeDeleted = await _timelineRepository.GetByIdAsync(request.TimelineId);
             
             if (timelineTobeDeleted == null)
             {
                 throw new NotFoundException(nameof(Timeline), request.TimelineId);
             }
 
-            await _asyncRepository.DeleteAsync(timelineTobeDeleted);
+            await _timelineRepository.DeleteAsync(timelineTobeDeleted);
 
             return Unit.Value;
         }

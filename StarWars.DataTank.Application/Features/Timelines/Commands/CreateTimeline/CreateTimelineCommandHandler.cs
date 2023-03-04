@@ -10,10 +10,10 @@ namespace StarWars.DataTank.Application.Features.Timelines.Commands.CreateTimeli
 {
     public class CreateTimelineCommandHandler : IRequestHandler<CreateTimelineCommand, Guid>
     {
-        private readonly IAsyncRepository<Timeline> _timelineRepository;
+        private readonly ITimelineRepository _timelineRepository;
         private readonly IMapper _mapper;
 
-        public CreateTimelineCommandHandler(IAsyncRepository<Timeline> timelineRepository, IMapper mapper)
+        public CreateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper)
         {
             _timelineRepository = timelineRepository;
             _mapper = mapper;

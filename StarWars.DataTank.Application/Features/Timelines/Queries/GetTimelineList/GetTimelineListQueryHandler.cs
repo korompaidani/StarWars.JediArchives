@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using StarWars.DataTank.Application.Contracts.Persistence;
-using StarWars.DataTank.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,10 +10,10 @@ namespace StarWars.DataTank.Application.Features.Timelines.Queries.GetTimelineLi
 {
     public class GetTimelineListQueryHandler : IRequestHandler<GetTimelineListQuery, List<TimelineListDto>>
     {
-        private readonly IAsyncRepository<Timeline> _timelineRepository;
+        private readonly ITimelineRepository _timelineRepository;
         private readonly IMapper _mapper;
 
-        public GetTimelineListQueryHandler(IAsyncRepository<Timeline> timelineRepository, IMapper mapper)
+        public GetTimelineListQueryHandler(ITimelineRepository timelineRepository, IMapper mapper)
         {
             _timelineRepository = timelineRepository;
             _mapper = mapper;

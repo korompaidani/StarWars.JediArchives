@@ -10,9 +10,9 @@ namespace StarWars.DataTank.Application.Features.Timelines.Commands.UpdateTimeli
 {
     public class UpdateTimelineCommandHandler : IRequestHandler<UpdateTimelineCommand>
     {
-        private readonly IAsyncRepository<Timeline> _timelineRepository;
+        private readonly ITimelineRepository _timelineRepository;
 
-        public UpdateTimelineCommandHandler(IAsyncRepository<Timeline> timelineRepository, IMapper mapper)
+        public UpdateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper)
         {
             _timelineRepository = timelineRepository;
         }
