@@ -1,9 +1,9 @@
 ﻿using StarWars.DataTank.Domain.Models;
 using System;
 
-namespace StarWars.DataTank.Application.Features.Timelines.Queries.GetTimelineDetail
+namespace StarWars.DataTank.Application.Features.Timelines.Queries.GetTimelineList
 {
-    public class TimelineDetailDto
+    public class TimelineListDto
     {
         public Guid TimelineId { get; set; }
         public string Name { get; set; }
@@ -12,8 +12,6 @@ namespace StarWars.DataTank.Application.Features.Timelines.Queries.GetTimelineDe
         public int EndYear { get; set; }
         public int Length => EndYear - StartYear;
         public string ImageUrl { get; set; }
-        public Image Image { get; set; }
-        public Guid CategoryId { get; set; }
-        public CategoryDto Category { get; set; }
+        public Image Image { get; set; }        
     }
 }
