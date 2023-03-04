@@ -24,14 +24,6 @@ namespace StarWars.JediArchives.Persistence
             var eventGuid = Guid.Parse("{9a12c346-cf77-466d-88ce-73ea07e83f54}");
             var mediaGuid = Guid.Parse("{ceda4792-392a-4920-a5b5-9b6abe04fca5}");
 
-            modelBuilder.Entity<Image>().HasData(new Image
-            {
-                ImageId = Guid.NewGuid(),
-                ImageData = new byte[] { 0, 1, 2 },
-                OriginalFileName = "",
-                ThumbnailData = new byte[] { 0 }
-            });
-
             modelBuilder.Entity<Category>().HasData(new Category
             {
                 CategoryId = characterGuid,
