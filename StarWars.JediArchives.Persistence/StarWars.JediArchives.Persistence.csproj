@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20230304204925_InitialMigration.cs" />
+    <Compile Remove="Migrations\20230304204925_InitialMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.10" />
   </ItemGroup>
@@ -12,6 +17,10 @@
   <ItemGroup>
     <ProjectReference Include="..\StarWars.JediArchives.Application\StarWars.JediArchives.Application.csproj" />
     <ProjectReference Include="..\StarWars.JediArchives.Domain\StarWars.JediArchives.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

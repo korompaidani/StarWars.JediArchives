@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using StarWars.JediArchives.Application.Contracts.Persistence;
 using System.Reflection;
 
 namespace StarWars.JediArchives.Application

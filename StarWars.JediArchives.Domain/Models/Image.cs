@@ -8,6 +8,7 @@ namespace StarWars.JediArchives.Domain.Models
         public string OriginalFileName { get; set; }
         public byte[] ThumbnailData { get; set; }
         public byte[] ImageData { get; set; }
+        public Guid TimelineId { get; set; }
         public virtual Timeline Timeline { get; set; }
     }
 }
