@@ -32,14 +32,13 @@ namespace StarWars.JediArchives.Api
                 try
                 {
                     Log.Information("Application Starting");
+                    host.Run();
                 }
                 catch (Exception ex)
                 {
                     Log.Warning(ex, "An error occured while starting the application");
                 }
             }
-
-            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
