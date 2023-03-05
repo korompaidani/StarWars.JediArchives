@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using StarWars.JediArchives.Application.Contracts.Persistence;
 using StarWars.JediArchives.Application.Exceptions;
 using StarWars.JediArchives.Domain.Models;
@@ -13,11 +14,13 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTi
     {
         private readonly ITimelineRepository _timelineRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<CreateTimelineCommandHandler> _logger;
 
-        public CreateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper)
+        public CreateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper, ILogger<CreateTimelineCommandHandler> logger)
         {
             _timelineRepository = timelineRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<Guid> Handle(CreateTimelineCommand request, CancellationToken cancellationToken)
@@ -38,6 +41,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTi
 
             if (validationResult.Errors.Count > 0)
             {
+                _logger.LogError($"Validation error in: {nameof(ValidateRequestAsync)} regarding to following request: {request}");
                 throw new ValidationException(validationResult);
             }
         }
