@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "0da45537-404f-4c40-aa66-a28bcee664a6",
+		"name": "Star Wars Jedi Archives",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4915218"
+	},
+	"item": [
+		{
+			"name": "All Timelines",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44355/api/timeline/all",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44355",
+					"path": [
+						"api",
+						"timeline",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Timeline",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"timelineId\": \"6d26ece4-b0e2-4d27-bed7-217572ecda34\",\n        \"name\": \"Jedi Fallen Order\",\n        \"description\": \"\",\n        \"startYear\": -19,\n        \"endYear\": -14,\n        \"length\": 5,\n        \"imageUrl\": \"\",\n        \"image\": null\n    }"
+				},
+				"url": {
+					"raw": "https://localhost:44355/api/v1/timeline/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44355",
+					"path": [
+						"api",
+						"v1",
+						"timeline",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Timeline",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"timelineId\": \"6d26ece4-b0e2-4d27-bed7-217572ecda34\",\n        \"name\": \"Jedi Fallen Order\",\n        \"description\": \"\",\n        \"startYear\": -19,\n        \"endYear\": -14,\n        \"length\": 5,\n        \"imageUrl\": \"\",\n        \"image\": null,\n        \"categoryid\": \"ceda4792-392a-4920-a5b5-9b6abe04fca5\"\n    }"
+				},
+				"url": {
+					"raw": "https://localhost:44355/api/v1/timeline/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44355",
+					"path": [
+						"api",
+						"v1",
+						"timeline",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Timeline",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44355/api/v1/timeline/{6d26ece4-b0e2-4d27-bed7-217572ecda34}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44355",
+					"path": [
+						"api",
+						"v1",
+						"timeline",
+						"{6d26ece4-b0e2-4d27-bed7-217572ecda34}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Timeline by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44355/api/v1/timeline/all",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44355",
+					"path": [
+						"api",
+						"v1",
+						"timeline",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
