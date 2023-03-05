@@ -12,7 +12,7 @@ using StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTimeli
 
 namespace StarWars.JediArchives.Api.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class TimelineController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace StarWars.JediArchives.Api.Controller
             _mediator = mediator;
         }
 
-        [HttpGet(Name = "GetAllTimelines")]
+        [HttpGet("all", Name = "GetAllTimelines")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines()
@@ -47,6 +47,7 @@ namespace StarWars.JediArchives.Api.Controller
         }
 
         [HttpPut(Name = "UpdateTimeline")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Update([FromBody] UpdateTimelineCommand updateTimelineCommand)
         {
@@ -55,6 +56,7 @@ namespace StarWars.JediArchives.Api.Controller
         }
 
         [HttpDelete("{timelineId}", Name = "DeleteTimeline")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete(Guid timelineId)
         {
