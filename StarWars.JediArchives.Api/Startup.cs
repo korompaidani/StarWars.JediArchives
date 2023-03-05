@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using StarWars.JediArchives.Api.Middleware;
 using StarWars.JediArchives.Application;
 using StarWars.JediArchives.Persistence;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -47,7 +48,7 @@ namespace StarWars.JediArchives.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Star Wars Jedi Archives API");
             });
-
+            app.UseCustomExceptionHandler();
             app.UseCors("Open");
             app.UseEndpoints(endpoints =>
             {
