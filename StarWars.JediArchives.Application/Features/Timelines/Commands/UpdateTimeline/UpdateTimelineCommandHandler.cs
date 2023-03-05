@@ -12,16 +12,19 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTi
     public class UpdateTimelineCommandHandler : IRequestHandler<UpdateTimelineCommand>
     {
         private readonly ITimelineRepository _timelineRepository;
+        private readonly IMapper _mapper;
 
         public UpdateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper)
         {
             _timelineRepository = timelineRepository;
+            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(UpdateTimelineCommand request, CancellationToken cancellationToken)
         {
             await ValidateRequestAsync(request);
             var timeline = await GetExistingAsync(request.TimelineId);
+            _mapper.Map(request, timeline, typeof(UpdateTimelineCommand), typeof(Timeline));
             await _timelineRepository.UpdateAsync(timeline);
 
             return Unit.Value;
