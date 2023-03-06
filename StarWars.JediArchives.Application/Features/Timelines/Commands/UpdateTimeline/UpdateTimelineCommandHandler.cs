@@ -38,6 +38,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTi
 
             if (timeline == null)
             {
+                _logger.LogWarning($"NotFound Exception was thrown: {nameof(Timeline)} regarding to following request id: {request}");
                 throw new NotFoundException(nameof(Timeline), request);
             }
 

@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using StarWars.JediArchives.Application.Contracts.Persistence;
 using StarWars.JediArchives.Application.Exceptions;
+using StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline;
 using StarWars.JediArchives.Domain.Models;
 using System;
 using System.Threading;
@@ -11,10 +13,12 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTi
     public class DeleteTimelineCommandHandler : IRequestHandler<DeleteTimelineCommand>
     {
         private readonly ITimelineRepository _timelineRepository;
+        private readonly ILogger<UpdateTimelineCommandHandler> _logger;
 
-        public DeleteTimelineCommandHandler(ITimelineRepository timelineRepository)
+        public DeleteTimelineCommandHandler(ITimelineRepository timelineRepository, ILogger<UpdateTimelineCommandHandler> logger)
         {
             _timelineRepository = timelineRepository;
+            _logger = logger;
         }
 
         public async Task Handle(DeleteTimelineCommand request, CancellationToken cancellationToken)
@@ -30,6 +34,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTi
 
             if (timeline == null)
             {
+                _logger.LogWarning($"NotFound Exception was thrown: {nameof(Timeline)} regarding to following request id: {request}");
                 throw new NotFoundException(nameof(Timeline), request);
             }
 
