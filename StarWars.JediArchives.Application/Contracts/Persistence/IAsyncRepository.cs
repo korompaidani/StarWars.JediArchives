@@ -8,6 +8,7 @@ namespace StarWars.JediArchives.Application.Contracts.Persistence
     {
         Task<T> GetByIdAsync(Guid id);
         Task<IReadOnlyList<T>> ListAllAsync();
+        Task<IReadOnlyList<T>> GetPagedReponseAsync(int page, int size);
         Task<T> AddAsync(T model);
         Task UpdateAsync(T model);
         Task DeleteAsync(T model);

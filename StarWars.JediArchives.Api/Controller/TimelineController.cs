@@ -26,9 +26,9 @@ namespace StarWars.JediArchives.Api.Controller
         [HttpGet("all", Name = "GetAllTimelines")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines()
+        public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines(int? page, int? size)
         {
-            var dtos = await _mediator.Send(new GetTimelineListQuery());
+            var dtos = await _mediator.Send(new GetTimelineListQuery { Page = page, Size = size });
             return Ok(dtos);
         }
 

@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using StarWars.JediArchives.Application.Contracts.Persistence;
 using StarWars.JediArchives.Application.Exceptions;
-using StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline;
 using StarWars.JediArchives.Domain.Models;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,9 +14,9 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimeli
         private readonly ITimelineRepository _timelineRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<UpdateTimelineCommandHandler> _logger;
+        private readonly ILogger<GetTimelineDetailQueryHandler> _logger;
 
-        public GetTimelineDetailQueryHandler(ITimelineRepository timelineRepository, ICategoryRepository categoryRepository, IMapper mapper, ILogger<UpdateTimelineCommandHandler> logger)
+        public GetTimelineDetailQueryHandler(ITimelineRepository timelineRepository, ICategoryRepository categoryRepository, IMapper mapper, ILogger<GetTimelineDetailQueryHandler> logger)
         {
             _timelineRepository = timelineRepository;
             _categoryRepository = categoryRepository;
