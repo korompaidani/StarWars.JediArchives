@@ -5,7 +5,6 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTi
 {
     public class CreateTimelineCommand : IRequest<Guid>
     {
-        public Guid TimelineId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int StartYear { get; set; }
@@ -15,7 +14,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTi
 
         public override string ToString()
         {
-            return $"{nameof(TimelineId)}: {TimelineId}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(StartYear)}: {StartYear}, {nameof(EndYear)}: {EndYear}, {nameof(ImageUrl)}: {ImageUrl}, {nameof(CategoryId)}: {CategoryId}";
+            return $"{nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(StartYear)}: {StartYear}, {nameof(EndYear)}: {EndYear}, {nameof(ImageUrl)}: {ImageUrl}, {nameof(CategoryId)}: {CategoryId}";
         }
     }
 }

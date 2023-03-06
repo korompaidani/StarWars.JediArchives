@@ -20,7 +20,7 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTi
 
             RuleFor(e => e)
                 .MustAsync(TimelineNameIsUnique)
-                .WithMessage("An event name with the same name and date already exists.");
+                .WithMessage("A timeline with the same name is already exists.");
 
             RuleFor(p => p.StartYear)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
