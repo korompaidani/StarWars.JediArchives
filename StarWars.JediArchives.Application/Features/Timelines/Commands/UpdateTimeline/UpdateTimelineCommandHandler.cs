@@ -23,14 +23,12 @@ namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTi
             _logger = logger;
         }
 
-        public async Task<Unit> Handle(UpdateTimelineCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateTimelineCommand request, CancellationToken cancellationToken)
         {
             await ValidateRequestAsync(request);
             var timeline = await GetExistingAsync(request.TimelineId);
             _mapper.Map(request, timeline, typeof(UpdateTimelineCommand), typeof(Timeline));
             await _timelineRepository.UpdateAsync(timeline);
-
-            return Unit.Value;
         }
 
         private async Task<Timeline> GetExistingAsync(Guid request)
