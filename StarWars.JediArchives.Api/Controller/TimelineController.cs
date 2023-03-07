@@ -12,33 +12,6 @@ using StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTimeli
 
 namespace StarWars.JediArchives.Api.Controller
 {
-    public class QueryParameters : IParsable<QueryParameters>
-    {
-        public TimelineDetailDto Model { get; set; } = new TimelineDetailDto();
-        public static QueryParameters Parse(string value, IFormatProvider? provider)
-        {
-
-            if (!TryParse(value, provider, out var result))
-            {
-                throw new ArgumentException("Could not parse supplied value.", nameof(value));
-            }
-
-            return result;
-        }
-
-        public static bool TryParse(string? value, IFormatProvider? provider, out QueryParameters parameters)
-        {
-            if(value != null)
-            {
-                var splitted = value.Split('&');
-
-            }
-
-            parameters = new QueryParameters();
-            return true;
-        }
-    }
-
     [Route("api/v1/[controller]")]
     [ApiController]
     public class TimelineController : ControllerBase
@@ -53,7 +26,7 @@ namespace StarWars.JediArchives.Api.Controller
         [HttpGet("all", Name = "GetAllTimelines")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines([FromQuery] int? page, [FromQuery] int? size, [FromQuery] QueryParameters range)
+        public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines(int? page, int? size, string query)
         {
             var dtos = await _mediator.Send(new GetTimelineListQuery { Page = page, Size = size });
             return Ok(dtos);
