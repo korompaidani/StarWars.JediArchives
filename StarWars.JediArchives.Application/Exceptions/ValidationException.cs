@@ -6,7 +6,7 @@ namespace StarWars.JediArchives.Application.Exceptions
 {
     public class ValidationException : ApplicationException
     {
-        public List<string> ValidationErrors { get; set; }
+        public IList<string> ValidationErrors { get; set; }
 
         public ValidationException(ValidationResult validationResult)
         {

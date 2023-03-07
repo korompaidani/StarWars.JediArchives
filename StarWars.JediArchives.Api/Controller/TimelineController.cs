@@ -28,7 +28,7 @@ namespace StarWars.JediArchives.Api.Controller
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines(int? page, int? size, string query)
         {
-            var dtos = await _mediator.Send(new GetTimelineListQuery { Page = page, Size = size });
+            var dtos = await _mediator.Send(new GetTimelineListQuery { Page = page, Size = size, Query = query });
             return Ok(dtos);
         }
 

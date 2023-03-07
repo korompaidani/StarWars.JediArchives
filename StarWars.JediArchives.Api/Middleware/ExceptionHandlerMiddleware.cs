@@ -42,6 +42,10 @@ namespace StarWars.JediArchives.Api.Middleware
                     httpStatusCode = HttpStatusCode.BadRequest;
                     result = JsonConvert.SerializeObject(validationException.ValidationErrors);
                     break;
+                case QueryValidationException queryValidationException:
+                    httpStatusCode = HttpStatusCode.BadRequest;
+                    result = JsonConvert.SerializeObject(queryValidationException.ValidationErrors);
+                    break;
                 case BadRequestException badRequestException:
                     httpStatusCode = HttpStatusCode.BadRequest;
                     result = badRequestException.Message;

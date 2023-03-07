@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StarWars.JediArchives.Application\StarWars.JediArchives.Application.csproj" />
+  </ItemGroup>
+
 </Project>
