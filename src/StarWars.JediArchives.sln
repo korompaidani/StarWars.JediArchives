@@ -13,17 +13,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{DAFF5B72-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DA80A6C3-B287-433C-B1AA-689B33F839E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Application", "StarWars.JediArchives.Application\StarWars.JediArchives.Application.csproj", "{AD41F005-BC09-4A63-9F00-599C91FD0E5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWars.JediArchives.Application", "StarWars.JediArchives.Application\StarWars.JediArchives.Application.csproj", "{AD41F005-BC09-4A63-9F00-599C91FD0E5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Domain", "StarWars.JediArchives.Domain\StarWars.JediArchives.Domain.csproj", "{B9C010A8-6447-4193-B1C7-B649305BE699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWars.JediArchives.Domain", "StarWars.JediArchives.Domain\StarWars.JediArchives.Domain.csproj", "{B9C010A8-6447-4193-B1C7-B649305BE699}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Identity", "StarWars.JediArchives.Identity\StarWars.JediArchives.Identity.csproj", "{807DEBE3-3D8F-469D-8A37-70EA0A6A6778}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWars.JediArchives.Identity", "StarWars.JediArchives.Identity\StarWars.JediArchives.Identity.csproj", "{807DEBE3-3D8F-469D-8A37-70EA0A6A6778}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Infrastructure", "StarWars.JediArchives.Infrastructure\StarWars.JediArchives.Infrastructure.csproj", "{CE9B1F35-0477-447F-9891-C0EAC989E0C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWars.JediArchives.Infrastructure", "StarWars.JediArchives.Infrastructure\StarWars.JediArchives.Infrastructure.csproj", "{CE9B1F35-0477-447F-9891-C0EAC989E0C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Persistence", "StarWars.JediArchives.Persistence\StarWars.JediArchives.Persistence.csproj", "{74BF2EEA-8016-4A0A-9A14-691A7FA67508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWars.JediArchives.Persistence", "StarWars.JediArchives.Persistence\StarWars.JediArchives.Persistence.csproj", "{74BF2EEA-8016-4A0A-9A14-691A7FA67508}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Api", "StarWars.JediArchives.Api\StarWars.JediArchives.Api.csproj", "{6006237F-FAF4-42C3-83C8-5E79378DCB60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWars.JediArchives.Api", "StarWars.JediArchives.Api\StarWars.JediArchives.Api.csproj", "{6006237F-FAF4-42C3-83C8-5E79378DCB60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{63B6B661-E553-4936-AF9A-AD63D346A395}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{5721D3D4-C89D-4E96-B547-EB1935F6A5FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BFA094C8-AC22-4ECE-A9C1-68281ED0516A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Identity.Tests", "StarWars.JediArchives.Identity.Tests\StarWars.JediArchives.Identity.Tests.csproj", "{C4B9FABA-6A92-46E7-8DA8-7A6943B56E2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Persistence.Tests", "StarWars.JediArchives.Persistence.Tests\StarWars.JediArchives.Persistence.Tests.csproj", "{65E48736-74F2-45D2-9311-CC59810854FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Infrastructure.Tests", "StarWars.JediArchives.Infrastructure.Tests\StarWars.JediArchives.Infrastructure.Tests.csproj", "{4B92724F-F72D-4A3C-AAEA-8C6F1FE6B942}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Application.Tests", "StarWars.JediArchives.Application.Tests\StarWars.JediArchives.Application.Tests.csproj", "{3600A1F6-1F70-4A74-B263-44F69C6818C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Domain.Tests", "StarWars.JediArchives.Domain.Tests\StarWars.JediArchives.Domain.Tests.csproj", "{F0626311-3882-471F-AACC-9DCD402E7D3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Api.Tests", "StarWars.JediArchives.Api.Tests\StarWars.JediArchives.Api.Tests.csproj", "{E998ED5A-860B-4A3D-B5E1-56FE06C646F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +73,30 @@ Global
 		{6006237F-FAF4-42C3-83C8-5E79378DCB60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6006237F-FAF4-42C3-83C8-5E79378DCB60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6006237F-FAF4-42C3-83C8-5E79378DCB60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4B9FABA-6A92-46E7-8DA8-7A6943B56E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4B9FABA-6A92-46E7-8DA8-7A6943B56E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4B9FABA-6A92-46E7-8DA8-7A6943B56E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4B9FABA-6A92-46E7-8DA8-7A6943B56E2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E48736-74F2-45D2-9311-CC59810854FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E48736-74F2-45D2-9311-CC59810854FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E48736-74F2-45D2-9311-CC59810854FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E48736-74F2-45D2-9311-CC59810854FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B92724F-F72D-4A3C-AAEA-8C6F1FE6B942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B92724F-F72D-4A3C-AAEA-8C6F1FE6B942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B92724F-F72D-4A3C-AAEA-8C6F1FE6B942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B92724F-F72D-4A3C-AAEA-8C6F1FE6B942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3600A1F6-1F70-4A74-B263-44F69C6818C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3600A1F6-1F70-4A74-B263-44F69C6818C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3600A1F6-1F70-4A74-B263-44F69C6818C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3600A1F6-1F70-4A74-B263-44F69C6818C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0626311-3882-471F-AACC-9DCD402E7D3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0626311-3882-471F-AACC-9DCD402E7D3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0626311-3882-471F-AACC-9DCD402E7D3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0626311-3882-471F-AACC-9DCD402E7D3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E998ED5A-860B-4A3D-B5E1-56FE06C646F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E998ED5A-860B-4A3D-B5E1-56FE06C646F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E998ED5A-860B-4A3D-B5E1-56FE06C646F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E998ED5A-860B-4A3D-B5E1-56FE06C646F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +111,15 @@ Global
 		{CE9B1F35-0477-447F-9891-C0EAC989E0C7} = {DA80A6C3-B287-433C-B1AA-689B33F839E2}
 		{74BF2EEA-8016-4A0A-9A14-691A7FA67508} = {DA80A6C3-B287-433C-B1AA-689B33F839E2}
 		{6006237F-FAF4-42C3-83C8-5E79378DCB60} = {E0DCA56E-05C6-4CDF-944F-B555A9884247}
+		{63B6B661-E553-4936-AF9A-AD63D346A395} = {96E545C1-7672-4953-BD99-35E5C21DF502}
+		{5721D3D4-C89D-4E96-B547-EB1935F6A5FE} = {96E545C1-7672-4953-BD99-35E5C21DF502}
+		{BFA094C8-AC22-4ECE-A9C1-68281ED0516A} = {96E545C1-7672-4953-BD99-35E5C21DF502}
+		{C4B9FABA-6A92-46E7-8DA8-7A6943B56E2F} = {BFA094C8-AC22-4ECE-A9C1-68281ED0516A}
+		{65E48736-74F2-45D2-9311-CC59810854FA} = {BFA094C8-AC22-4ECE-A9C1-68281ED0516A}
+		{4B92724F-F72D-4A3C-AAEA-8C6F1FE6B942} = {BFA094C8-AC22-4ECE-A9C1-68281ED0516A}
+		{3600A1F6-1F70-4A74-B263-44F69C6818C9} = {5721D3D4-C89D-4E96-B547-EB1935F6A5FE}
+		{F0626311-3882-471F-AACC-9DCD402E7D3F} = {5721D3D4-C89D-4E96-B547-EB1935F6A5FE}
+		{E998ED5A-860B-4A3D-B5E1-56FE06C646F7} = {63B6B661-E553-4936-AF9A-AD63D346A395}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6D85980-CEE9-4E01-B223-BEDC21CEECE9}
