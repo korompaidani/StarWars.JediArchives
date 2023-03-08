@@ -43,6 +43,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWars.JediArchives.Api.Tests", "StarWars.JediArchives.Api.Tests\StarWars.JediArchives.Api.Tests.csproj", "{E998ED5A-860B-4A3D-B5E1-56FE06C646F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{181B2BAB-4A57-4BF4-A868-01A877B62159}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
