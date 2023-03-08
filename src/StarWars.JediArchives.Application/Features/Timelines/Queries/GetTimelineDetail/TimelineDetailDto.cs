@@ -1,6 +1,6 @@
 ﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineDetail
 {
-    public class TimelineDetailDto
+    public record TimelineDetailDto
     {
         public Guid TimelineId { get; set; }
         public string Name { get; set; }
