@@ -17,8 +17,6 @@
 
   <ItemGroup>
     <Folder Include="ComponentTests\" />
-    <Folder Include="UnitTests\" />
-    <Folder Include="UnitTests\QueryParser\" />
   </ItemGroup>
 
   <ItemGroup>

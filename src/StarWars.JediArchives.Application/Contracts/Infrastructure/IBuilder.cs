@@ -2,6 +2,6 @@
 {
     public interface IBuilder<T>
     {
-        T Build<T>() where T : IQueryParser;
+        T Build();
     }
 }
