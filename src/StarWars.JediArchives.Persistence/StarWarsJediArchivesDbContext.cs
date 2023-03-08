@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using StarWars.JediArchives.Domain.Models;
-using System;
-
-namespace StarWars.JediArchives.Persistence
+﻿namespace StarWars.JediArchives.Persistence
 {
     public class StarWarsJediArchivesDbContext : DbContext
     {

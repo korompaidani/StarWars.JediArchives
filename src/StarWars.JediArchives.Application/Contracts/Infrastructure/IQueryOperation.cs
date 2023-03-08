@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StarWars.JediArchives.Application.Contracts.Infrastructure
+﻿namespace StarWars.JediArchives.Application.Contracts.Infrastructure
 {
     public interface IQueryOperation
     {

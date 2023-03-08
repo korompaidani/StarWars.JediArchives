@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StarWars.JediArchives.Application.Exceptions
+﻿namespace StarWars.JediArchives.Application.Exceptions
 {
     public class QueryValidationException : ApplicationException
     {

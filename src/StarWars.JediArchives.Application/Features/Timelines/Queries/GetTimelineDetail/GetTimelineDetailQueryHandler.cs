@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using StarWars.JediArchives.Application.Contracts.Persistence;
-using StarWars.JediArchives.Application.Exceptions;
-using StarWars.JediArchives.Domain.Models;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineDetail
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineDetail
 {
     public class GetTimelineDetailQueryHandler : IRequestHandler<GetTimelineDetailQuery, TimelineDetailDto>
     {

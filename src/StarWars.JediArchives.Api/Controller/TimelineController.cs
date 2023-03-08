@@ -1,16 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList;
-using StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineDetail;
-using StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline;
-using StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline;
-using StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTimeline;
-
-namespace StarWars.JediArchives.Api.Controller
+﻿namespace StarWars.JediArchives.Api.Controller
 {
     [Route("api/v1/[controller]")]
     [ApiController]

@@ -1,7 +1,4 @@
-﻿using MediatR;
-using System;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline
 {
     public class UpdateTimelineCommand : IRequest
     {

@@ -1,7 +1,4 @@
-﻿using MediatR;
-using System;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline
 {
     public class CreateTimelineCommand : IRequest<Guid>
     {

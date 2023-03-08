@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StarWars.JediArchives.Domain.Models
+﻿namespace StarWars.JediArchives.Domain.Models
 {
     public class Timeline
     {

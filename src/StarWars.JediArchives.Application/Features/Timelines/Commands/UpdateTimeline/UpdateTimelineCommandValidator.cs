@@ -1,9 +1,4 @@
-﻿using StarWars.JediArchives.Application.Contracts.Persistence;
-using System.Threading.Tasks;
-using System.Threading;
-using FluentValidation;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline
 {
     public class UpdateTimelineCommandValidator : AbstractValidator<UpdateTimelineCommand>
     {

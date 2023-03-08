@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-
-namespace StarWars.JediArchives.Api.Middleware
+﻿namespace StarWars.JediArchives.Api.Middleware
 {
     public static class MiddlewareExtensions
     {

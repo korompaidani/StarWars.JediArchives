@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using StarWars.JediArchives.Application.Contracts.Persistence;
-using StarWars.JediArchives.Persistence.Repositories;
-
-namespace StarWars.JediArchives.Persistence
+﻿namespace StarWars.JediArchives.Persistence
 {
     public static class PersistenceServiceRegistration
     {

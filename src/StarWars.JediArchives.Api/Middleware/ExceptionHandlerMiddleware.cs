@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using StarWars.JediArchives.Application.Exceptions;
-using System.Net;
-using System.Threading.Tasks;
-using System;
-
-namespace StarWars.JediArchives.Api.Middleware
+﻿namespace StarWars.JediArchives.Api.Middleware
 {
     public class ExceptionHandlerMiddleware
     {

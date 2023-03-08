@@ -1,13 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using StarWars.JediArchives.Api.Middleware;
-using StarWars.JediArchives.Application;
-using StarWars.JediArchives.Persistence;
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
-
 namespace StarWars.JediArchives.Api
 {
     public class Startup

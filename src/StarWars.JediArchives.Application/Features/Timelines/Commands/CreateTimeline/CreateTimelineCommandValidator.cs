@@ -1,9 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Threading;
-using FluentValidation;
-using StarWars.JediArchives.Application.Contracts.Persistence;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline
 {
     public class CreateTimelineCommandValidator : AbstractValidator<CreateTimelineCommand>
     {

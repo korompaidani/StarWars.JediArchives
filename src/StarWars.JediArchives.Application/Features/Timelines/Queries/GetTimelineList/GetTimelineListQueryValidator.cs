@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
 {
     public class GetTimelineListQueryValidator : AbstractValidator<GetTimelineListQuery>
     {

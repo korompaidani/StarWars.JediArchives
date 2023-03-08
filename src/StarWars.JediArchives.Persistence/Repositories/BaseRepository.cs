@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using StarWars.JediArchives.Application.Contracts.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace StarWars.JediArchives.Persistence.Repositories
+﻿namespace StarWars.JediArchives.Persistence.Repositories
 {
     public class BaseRepository<T> : IAsyncRepository<T> where T : class
     {

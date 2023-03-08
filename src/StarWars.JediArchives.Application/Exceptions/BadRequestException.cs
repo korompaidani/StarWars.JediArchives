@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StarWars.JediArchives.Application.Exceptions
+﻿namespace StarWars.JediArchives.Application.Exceptions
 {
     public class BadRequestException : ApplicationException
     {

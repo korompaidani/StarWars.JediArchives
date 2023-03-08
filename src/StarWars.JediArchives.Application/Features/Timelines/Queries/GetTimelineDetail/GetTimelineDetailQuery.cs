@@ -1,7 +1,4 @@
-﻿using MediatR;
-using System;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineDetail
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineDetail
 {
     public class GetTimelineDetailQuery : IRequest<TimelineDetailDto>
     {

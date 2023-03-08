@@ -1,9 +1,6 @@
-﻿using StarWars.JediArchives.Application.Contracts.Infrastructure;
-using System;
-
-namespace StarWars.JediArchives.Infrastructure.QueryParser
+﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
-    public class QueryOperation : IQueryOperation
+    public record QueryOperation : IQueryOperation
     {
         public string Value { get; set; }
         public string PropertyName { get; set; }

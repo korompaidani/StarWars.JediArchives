@@ -1,14 +1,4 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
-using StarWars.JediArchives.Application.Contracts.Persistence;
-using StarWars.JediArchives.Application.Exceptions;
-using StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline;
-using StarWars.JediArchives.Domain.Models;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTimeline
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTimeline
 {
     public class DeleteTimelineCommandHandler : IRequestHandler<DeleteTimelineCommand>
     {

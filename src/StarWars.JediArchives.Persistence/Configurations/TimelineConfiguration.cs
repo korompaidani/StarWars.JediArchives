@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using StarWars.JediArchives.Domain.Models;
-
-namespace StarWars.JediArchives.Persistence.Configurations
+﻿namespace StarWars.JediArchives.Persistence.Configurations
 {
     public class TimelineConfiguration : IEntityTypeConfiguration<Timeline>
     {

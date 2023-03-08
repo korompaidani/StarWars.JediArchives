@@ -1,8 +1,4 @@
-﻿using FluentValidation;
-using StarWars.JediArchives.Application.Contracts.Infrastructure;
-using System;
-
-namespace StarWars.JediArchives.Infrastructure.QueryParser
+﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
     public class QueryParserBuilder : IBuilder<QueryParser>
     {
@@ -47,8 +43,6 @@ namespace StarWars.JediArchives.Infrastructure.QueryParser
         {
             _parser = new QueryParser(targetType);
         }
-
-
 
         public T Build<T>() where T : IQueryParser
         {

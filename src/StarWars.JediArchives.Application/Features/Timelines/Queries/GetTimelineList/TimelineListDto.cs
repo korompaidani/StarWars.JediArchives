@@ -1,8 +1,4 @@
-﻿using StarWars.JediArchives.Application.Features.Common.Dto;
-using StarWars.JediArchives.Domain.Models;
-using System;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
 {
     public class TimelineListDto
     {

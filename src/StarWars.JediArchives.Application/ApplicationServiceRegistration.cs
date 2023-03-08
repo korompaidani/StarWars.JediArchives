@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
-
-namespace StarWars.JediArchives.Application
+﻿namespace StarWars.JediArchives.Application
 {
     public static class ApplicationServiceRegistration
     {

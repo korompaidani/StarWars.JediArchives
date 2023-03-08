@@ -1,8 +1,4 @@
-﻿using MediatR;
-using StarWars.JediArchives.Application.Features.Common.Dto;
-using System.Collections.Generic;
-
-namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
+﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
 {
     public class GetTimelineListQuery : IParametrizedDto, IRequest<List<TimelineListDto>>
     {
