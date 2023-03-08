@@ -1,0 +1,12 @@
+<Project>
+    <PropertyGroup>    
+        <Title>Star Wars - Jedi Archives</Title>
+        <Authors>Daniel Korompai</Authors>
+        <Description>Backend Server of $(Title)</Description>
+        <TargetFramework>net7.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <UseEntityFrameworkBundle>7.0.3</UseEntityFrameworkBundle>
+    </PropertyGroup>
+</Project>
