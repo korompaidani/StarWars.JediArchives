@@ -12,6 +12,7 @@ global using StarWars.JediArchives.Application.Features.Timelines.Commands.Updat
 global using StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineDetail;
 global using StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList;
 global using StarWars.JediArchives.Domain.Models;
+global using StarWars.JediArchives.Infrastructure.QueryParser;
 global using System;
 global using System.Collections.Generic;
 global using System.Reflection;

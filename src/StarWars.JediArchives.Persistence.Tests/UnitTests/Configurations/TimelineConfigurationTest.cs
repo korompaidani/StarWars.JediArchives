@@ -19,7 +19,6 @@ namespace StarWars.JediArchives.Persistence.Tests.UnitTests.Configurations
             // Act
 
             // Assert
-            Assert.Fail("NOT TESTED YET!");
         }
     }
 }

@@ -1,18 +1,6 @@
 ﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
-    //TODO: Separate classes and thinking on visibility
-    public enum Comparer
-    {
-        Equal,
-        Less,
-        Greater
-    }
-
-    public enum OrderBy
-    {
-        Ascend,
-        Descend
-    }
+    using StarWars.JediArchives.Application.Exceptions;
 
     public class QueryProcessorBuilder : IBuilder<QueryProcessor>
     {
@@ -29,16 +17,37 @@
             return _ruleBuilder;
         }
 
+        /// <summary>
+        /// QueryProcessorBuilder for building Processor in fluent manner
+        /// </summary>
+        /// <param name="targetType">Only integer properties are supported in this version</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="QueryValidationException"></exception>
         public QueryProcessorBuilder(Type targetType)
         {
+            if(targetType is null)
+            {
+                throw new ArgumentNullException(nameof(targetType));
+            }
+
             _ruleBuilders = new List<RuleBuilder>();
             _targetType = targetType;
-            _propertyCollection = _targetType.GetProperties().Select(a => a.Name).ToHashSet();
+            _propertyCollection = _targetType.GetProperties().Where(p => p.PropertyType == typeof(int)).Select(a => a.Name).ToHashSet();
+
+            if(_propertyCollection is null || _propertyCollection.Count == 0)
+            {
+                throw new QueryValidationException(new[] { $"There was no appropriate property in the given type: {targetType.GetType()}. Only {typeof(int)} types are supported in this version."});
+            }
         }
 
         public QueryProcessor Build()
         {
-            _queryParser = new QueryProcessor(_propertyCollection);
+            if (_ruleBuilders.Count == 0)
+            {
+                throw new QueryValidationException(new[]{"There is no Rule Defined."});
+            }
+
+            _queryParser = new QueryProcessor(_targetType, _propertyCollection);
 
             foreach (var ruleBuilder in _ruleBuilders)
             {
@@ -48,205 +57,228 @@
 
             return _queryParser;
         }
-    }
 
-    public class RuleBuilder : IBuilder<KeyValuePair<string, Func<string, QueryOperation>>>
-    {
-        private QueryProcessorBuilder _queryParserBuilder;
-
-        private string _filter;
-        private char _valueFromCharacter;
-        private int _valueUntilEndIndex;
-        private int _propertyFromIndex;
-        private char _propertyEndChar;
-        private string _orderByPropertyName;
-        private OrderBy _orderByDirection;
-
-        private HashSet<string> _propertyCollection;
-        private Func<int, int, bool> _comparer;
-        private Func<dynamic, dynamic> _orderByQuery;
-        private KeyValuePair<string, Func<string, QueryOperation>> _rule;
-
-        public RuleBuilder(QueryProcessorBuilder queryParserBuilder, string filter, HashSet<string> propertyCollection)
-        {            
-            _queryParserBuilder = queryParserBuilder;
-            _filter = filter;
-            _propertyCollection = propertyCollection;
-        }
-
-        public RuleBuilder WithValueFromCharacterUntilEndIndex(char fromCharacter, int endIndex)
+        #region Nested RuleBuilder
+        public class RuleBuilder : IBuilder<KeyValuePair<string, Func<string, QueryOperation>>>
         {
-            _valueFromCharacter = fromCharacter;
-            _valueUntilEndIndex = endIndex;
-            return this;
-        }
+            private QueryProcessorBuilder _queryParserBuilder;
 
-        public RuleBuilder WithPropertyFromIndexUntilEndCharacter(int fromIndex, char endCharacter)
-        {
-            _propertyFromIndex = fromIndex;
-            _propertyEndChar = endCharacter;
-            return this;
-        }
+            private string? _filter;
+            private char? _valueFromCharacter;
+            private int? _valueUntilEndIndex;
+            private int? _propertyFromIndex;
+            private char? _propertyEndChar;
+            private string _orderByPropertyName;
+            private OrderBy _orderByDirection;
 
-        public QueryProcessorBuilder WithExpectedComparer(Comparer expectedComparer)
-        {
-            switch (expectedComparer)
+            private HashSet<string> _propertyCollection;
+            private Func<int, int, bool> _comparer;
+            private Func<dynamic, dynamic> _orderByQuery;
+            private KeyValuePair<string, Func<string, QueryOperation>> _rule;
+
+            public RuleBuilder(QueryProcessorBuilder queryParserBuilder, string filter, HashSet<string> propertyCollection)
             {
-                case Comparer.Equal:
-                    _comparer = Equal<int>();
-                    break;
-                case Comparer.Less:
-                    _comparer = Less<int>();
-                    break;
-                case Comparer.Greater:
-                    _comparer = Greater<int>();
-                    break;
+                _queryParserBuilder = queryParserBuilder;
+                _filter = filter;
+                _propertyCollection = propertyCollection;
             }
 
-            return _queryParserBuilder;
-        }
-
-        public QueryProcessorBuilder WithExpectedOrderBy(OrderBy expectedDirection, string propertyName)
-        {
-            switch (expectedDirection)
+            public RuleBuilder WithValueFromCharacterUntilEndIndex(char fromCharacter, int endIndex)
             {
-                case OrderBy.Ascend:
-                    _orderByPropertyName = propertyName;
-                    //TODO: _orderByQuery
-                    break;
-                case OrderBy.Descend:
-                    _orderByPropertyName = propertyName;
-                    //TODO: _orderByQuery
-                    break;
+                _valueFromCharacter = fromCharacter;
+                _valueUntilEndIndex = endIndex;
+                return this;
             }
 
-            return _queryParserBuilder;
-        }
-
-        public KeyValuePair<string, Func<string, QueryOperation>> Build()
-        {
-            var operation = CreateComparerQueryOperation(
-                _valueFromCharacter,
-                _propertyEndChar,
-                _propertyFromIndex,
-                _valueUntilEndIndex,
-                _comparer,
-                _propertyCollection);
-
-            _rule = new KeyValuePair<string, Func<string, QueryOperation>>(_filter, operation);
-            return _rule;
-        }
-
-        #region HelperMethods
-        private Func<string, QueryOperation> CreateComparerQueryOperation(char valueFromCharacter, char propertyEndChar, int propertyFromIndex, int valueUntilEndIndex, Func<int, int, bool> comparer, HashSet<string> propertyCollection)
-        {
-            return delegate (string userDefinedSingleQuery)
+            public RuleBuilder WithPropertyFromIndexUntilEndCharacter(int fromIndex, char endCharacter)
             {
-                var val = CreateStringFromCharacterUntilIndexFromEnd(userDefinedSingleQuery, valueFromCharacter, valueUntilEndIndex);
-                var propName = CreateStringFromIndexUntilEndCharacter(userDefinedSingleQuery, propertyEndChar, propertyFromIndex);
-                var filteredPropName = FilterProperties(propName);
-                var num = GetIntegerFromValue(val);
-                var foundProp = GetOriginalPropertyName(filteredPropName, val, num, propertyCollection);
-                var task = SetFilterLinqQuery(num, foundProp, comparer);
-                return new QueryOperation { Value = val, PropertyName = propName, CompareTask = task };
-            };
-        }
-
-        private string CreateStringFromCharacterUntilIndexFromEnd(string input, char fromCharacter, int characterFromEnd = 0)
-        {
-            const int offSetValue = 1;
-            var indexOfFromCharacter = input.IndexOf(fromCharacter);
-
-            if (indexOfFromCharacter == -1)
-            {
-                throw new Exception();
+                _propertyFromIndex = fromIndex;
+                _propertyEndChar = endCharacter;
+                return this;
             }
 
-            int length = input.Length - indexOfFromCharacter - offSetValue - characterFromEnd;
-            if (!(indexOfFromCharacter + length < input.Length && length > 0))
+            public QueryProcessorBuilder WithExpectedComparer(Comparer expectedComparer)
             {
-                length = input.Length - indexOfFromCharacter - offSetValue;
+                switch (expectedComparer)
+                {
+                    case Comparer.Equal:
+                        _comparer = Equal<int>();
+                        break;
+                    case Comparer.Less:
+                        _comparer = Less<int>();
+                        break;
+                    case Comparer.Greater:
+                        _comparer = Greater<int>();
+                        break;
+                }
+
+                return _queryParserBuilder;
             }
 
-            var result = input.Substring((indexOfFromCharacter + offSetValue), length);
-
-            return result;
-        }
-
-        private string CreateStringFromIndexUntilEndCharacter(string input, char untilCharacter, int startIndex = 0)
-        {
-            int indexOfUntilCharacter = input.IndexOf(untilCharacter);
-            if (indexOfUntilCharacter < 1 || !(startIndex < indexOfUntilCharacter && startIndex > -1))
+            public QueryProcessorBuilder WithExpectedOrderBy(OrderBy expectedDirection, string propertyName)
             {
-                throw new Exception();
+                switch (expectedDirection)
+                {
+                    case OrderBy.Ascend:
+                        _orderByPropertyName = propertyName;
+                        //TODO: _orderByQuery
+                        break;
+                    case OrderBy.Descend:
+                        _orderByPropertyName = propertyName;
+                        //TODO: _orderByQuery
+                        break;
+                }
+
+                return _queryParserBuilder;
             }
 
-            var result = input.Substring(startIndex, input.IndexOf(untilCharacter) - startIndex);
-            return result;
-        }
-
-        private int GetIntegerFromValue(string value)
-        {
-            int integer;
-            if (!int.TryParse(value, out integer))
+            public KeyValuePair<string, Func<string, QueryOperation>> Build()
             {
-                throw new Exception();
-            }
-            return integer;
-        }
+                ValidateProperties(_valueFromCharacter,_propertyEndChar, _propertyFromIndex, _valueUntilEndIndex);
+                
+                var operation = CreateComparerQueryOperation(
+                    _valueFromCharacter.Value,
+                    _propertyEndChar.Value,
+                    _propertyFromIndex.Value,
+                    _valueUntilEndIndex.Value,
+                    _comparer,
+                    _propertyCollection);
 
-        private Func<T, T, bool> GreaterOrEqual<T>() where T : IComparable<T>
-        {
-            return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) >= 0; };
-        }
-
-        private Func<T, T, bool> LessOrEqual<T>() where T : IComparable<T>
-        {
-            return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) <= 0; };
-        }
-
-        private Func<T, T, bool> Greater<T>() where T : IComparable<T>
-        {
-            return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) > 0; };
-        }
-
-        private Func<T, T, bool> Less<T>() where T : IComparable<T>
-        {
-            return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) < 0; };
-        }
-
-        private Func<T, T, bool> Equal<T>() where T : IComparable<T>
-        {
-            return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) == 0; };
-        }
-
-        private string FilterProperties(string propName)
-        {
-            var pattern = @"(\s+|@|&|'|\(|\)|<|>|#|_)";
-            var filteredPropName = Regex.Replace(propName, pattern, string.Empty).ToLower();
-            return filteredPropName;
-        }
-
-        private string GetOriginalPropertyName(string filteredPropName, string value, int numberValue, HashSet<string> propertyCollection)
-        {
-            string foundProp = null;
-            if (!propertyCollection.TryGetValue(filteredPropName, out foundProp) || !int.TryParse(value, out numberValue))
-            {
-                throw new Exception();
+                _rule = new KeyValuePair<string, Func<string, QueryOperation>>(_filter, operation);
+                return _rule;
             }
 
-            return foundProp;
-        }
-
-        private static Func<dynamic, bool> SetFilterLinqQuery(int num, string foundProp, Func<int, int, bool> operation)
-        {
-            return entity =>
+            #region HelperMethods
+            private void ValidateProperties(char? valueFromCharacter, char? propertyEndChar, int? propertyFromIndex, int? valueUntilEndIndex)
             {
-                var entityProperty = entity.GetType().GetProperty(foundProp);
-                var entityPropertyValue = entityProperty.GetValue(entity);
+                var possibleExceptionMessages = new List<string>();
 
-                return operation(entityPropertyValue, num);
-            };
+                if (valueFromCharacter is null || valueUntilEndIndex is null)
+                {
+                    possibleExceptionMessages.Add($"{valueFromCharacter} and/or {valueUntilEndIndex} should be set.");
+                }
+                if (propertyEndChar is null || propertyFromIndex is null)
+                {
+                    possibleExceptionMessages.Add($"{propertyEndChar} and/or {propertyFromIndex} should be set.");
+                }
+
+                if (possibleExceptionMessages.Count != 0)
+                {
+                    throw new QueryValidationException(possibleExceptionMessages);
+                }
+            }
+
+            private Func<string, QueryOperation> CreateComparerQueryOperation(char valueFromCharacter, char propertyEndChar, int propertyFromIndex, int valueUntilEndIndex, Func<int, int, bool> comparer, HashSet<string> propertyCollection)
+            {
+                return delegate (string userDefinedSingleQuery)
+                {
+                    var val = CreateStringFromCharacterUntilIndexFromEnd(userDefinedSingleQuery, valueFromCharacter, valueUntilEndIndex);
+                    var propName = CreateStringFromIndexUntilEndCharacter(userDefinedSingleQuery, propertyEndChar, propertyFromIndex);
+                    var filteredPropName = FilterProperties(propName);
+                    var num = GetIntegerFromValue(val);
+                    var foundProp = GetOriginalPropertyName(filteredPropName, val, num, propertyCollection);
+                    var task = SetFilterLinqQuery(num, foundProp, comparer);
+                    return new QueryOperation { Value = val, PropertyName = propName, CompareTask = task };
+                };
+            }
+
+            private string CreateStringFromCharacterUntilIndexFromEnd(string input, char fromCharacter, int characterFromEnd = 0)
+            {
+                const int offSetValue = 1;
+                var indexOfFromCharacter = input.IndexOf(fromCharacter);
+
+                if (indexOfFromCharacter == -1)
+                {
+                    throw new QueryValidationException(new[] { $"The character '{fromCharacter}' was not found in {nameof(CreateStringFromCharacterUntilIndexFromEnd)}" });
+                }
+
+                int length = input.Length - indexOfFromCharacter - offSetValue - characterFromEnd;
+                if (!(indexOfFromCharacter + length < input.Length && length > 0))
+                {
+                    length = input.Length - indexOfFromCharacter - offSetValue;
+                }
+
+                var result = input.Substring((indexOfFromCharacter + offSetValue), length);
+
+                return result;
+            }
+
+            private string CreateStringFromIndexUntilEndCharacter(string input, char untilCharacter, int startIndex = 0)
+            {
+                int indexOfUntilCharacter = input.IndexOf(untilCharacter);
+                if (indexOfUntilCharacter < 1 || !(startIndex < indexOfUntilCharacter && startIndex > -1))
+                {
+                    throw new QueryValidationException(new[] { $"The character '{untilCharacter}' was not found or is in first position or invalid {nameof(startIndex)} was set: {startIndex} in: {nameof(CreateStringFromIndexUntilEndCharacter)}" });
+                }
+
+                var result = input.Substring(startIndex, input.IndexOf(untilCharacter) - startIndex);
+                return result;
+            }
+
+            private int GetIntegerFromValue(string value)
+            {
+                int integer;
+                if (!int.TryParse(value, out integer))
+                {
+                    throw new QueryValidationException(new[] { $"Only {typeof(int)} value properties are supported in this version." });
+                }
+                return integer;
+            }
+
+            private Func<T, T, bool> GreaterOrEqual<T>() where T : IComparable<T>
+            {
+                return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) >= 0; };
+            }
+
+            private Func<T, T, bool> LessOrEqual<T>() where T : IComparable<T>
+            {
+                return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) <= 0; };
+            }
+
+            private Func<T, T, bool> Greater<T>() where T : IComparable<T>
+            {
+                return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) > 0; };
+            }
+
+            private Func<T, T, bool> Less<T>() where T : IComparable<T>
+            {
+                return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) < 0; };
+            }
+
+            private Func<T, T, bool> Equal<T>() where T : IComparable<T>
+            {
+                return delegate (T lhs, T rhs) { return lhs.CompareTo(rhs) == 0; };
+            }
+
+            private string FilterProperties(string propName)
+            {
+                var pattern = @"(\s+|@|&|'|\(|\)|<|>|#|_)";
+                var filteredPropName = Regex.Replace(propName, pattern, string.Empty).ToLower();
+                return filteredPropName;
+            }
+
+            private string GetOriginalPropertyName(string filteredPropName, string value, int numberValue, HashSet<string> propertyCollection)
+            {
+                string foundProp = null;
+                if (!propertyCollection.TryGetValue(filteredPropName, out foundProp) || !int.TryParse(value, out numberValue))
+                {
+                    throw new QueryValidationException(new[] { $"Only {typeof(int)} value properties are supported in this version." });
+                }
+
+                return foundProp;
+            }
+
+            private static Func<dynamic, bool> SetFilterLinqQuery(int num, string foundProp, Func<int, int, bool> operation)
+            {
+                return entity =>
+                {
+                    var entityProperty = entity.GetType().GetProperty(foundProp);
+                    var entityPropertyValue = entityProperty.GetValue(entity);
+
+                    return operation(entityPropertyValue, num);
+                };
+            }
+            #endregion
         }
         #endregion
     }
