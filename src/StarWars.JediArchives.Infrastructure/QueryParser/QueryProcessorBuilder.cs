@@ -14,11 +14,11 @@
         Descend
     }
 
-    public class QueryParserBuilder : IBuilder<QueryParser>
+    public class QueryProcessorBuilder : IBuilder<QueryProcessor>
     {
         private RuleBuilder _ruleBuilder;
         private Type _targetType;
-        private QueryParser _queryParser;
+        private QueryProcessor _queryParser;
         private HashSet<string> _propertyCollection;
         private List<RuleBuilder> _ruleBuilders;
 
@@ -29,16 +29,16 @@
             return _ruleBuilder;
         }
 
-        public QueryParserBuilder(Type targetType)
+        public QueryProcessorBuilder(Type targetType)
         {
             _ruleBuilders = new List<RuleBuilder>();
             _targetType = targetType;
             _propertyCollection = _targetType.GetProperties().Select(a => a.Name).ToHashSet();
         }
 
-        public QueryParser Build()
+        public QueryProcessor Build()
         {
-            _queryParser = new QueryParser(_propertyCollection);
+            _queryParser = new QueryProcessor(_propertyCollection);
 
             foreach (var ruleBuilder in _ruleBuilders)
             {
@@ -52,7 +52,7 @@
 
     public class RuleBuilder : IBuilder<KeyValuePair<string, Func<string, QueryOperation>>>
     {
-        private QueryParserBuilder _queryParserBuilder;
+        private QueryProcessorBuilder _queryParserBuilder;
 
         private string _filter;
         private char _valueFromCharacter;
@@ -67,7 +67,7 @@
         private Func<dynamic, dynamic> _orderByQuery;
         private KeyValuePair<string, Func<string, QueryOperation>> _rule;
 
-        public RuleBuilder(QueryParserBuilder queryParserBuilder, string filter, HashSet<string> propertyCollection)
+        public RuleBuilder(QueryProcessorBuilder queryParserBuilder, string filter, HashSet<string> propertyCollection)
         {            
             _queryParserBuilder = queryParserBuilder;
             _filter = filter;
@@ -88,7 +88,7 @@
             return this;
         }
 
-        public QueryParserBuilder WithExpectedComparer(Comparer expectedComparer)
+        public QueryProcessorBuilder WithExpectedComparer(Comparer expectedComparer)
         {
             switch (expectedComparer)
             {
@@ -106,7 +106,7 @@
             return _queryParserBuilder;
         }
 
-        public QueryParserBuilder WithExpectedOrderBy(OrderBy expectedDirection, string propertyName)
+        public QueryProcessorBuilder WithExpectedOrderBy(OrderBy expectedDirection, string propertyName)
         {
             switch (expectedDirection)
             {

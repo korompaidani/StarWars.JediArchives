@@ -1,6 +1,6 @@
 ﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
-    public class QueryParser
+    public class QueryProcessor
     {
         private HashSet<string> _propertyInfos;
         private Stack<QueryOperation> _executableQueryExpressions;
@@ -24,7 +24,7 @@
         /// </summary>
         /// <param name="targetType"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public QueryParser(Type targetType)
+        public QueryProcessor(Type targetType)
         {
             if (targetType is null)
             {
@@ -43,7 +43,7 @@
         /// </summary>
         /// <param name="propertyCollection"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public QueryParser(HashSet<string> propertyCollection)
+        public QueryProcessor(HashSet<string> propertyCollection)
         {
             if (propertyCollection is null)
             {
