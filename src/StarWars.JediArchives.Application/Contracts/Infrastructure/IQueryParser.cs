@@ -3,7 +3,7 @@
     public interface IQueryPropcessor
     {
         /// <summary>
-        /// It Should be call at Linq qery executions (1)
+        /// It Should be call at Linq qery executions (3)
         /// ExecutableEnumerator returns with the top level element of the Stack which was added via AddProcess in order to execute them in an intended order
         /// </summary>
         IEnumerator<QueryOperation> ExecutableEnumerator { get; }
@@ -14,7 +14,7 @@
         Type TargetType { get; init; }
 
         /// <summary>
-        /// It Should be call at Setup time via its Builder in order to define rules (3)
+        /// It Should be call at Setup time via its Builder in order to define rules (1)
         /// Add item to the top of the Stack. The expressions will be executed in LIFO order.
         /// </summary>
         /// <param name="queryFilterCondition">The Regex expression which descibes how query parameter can be uniquely identified</param>

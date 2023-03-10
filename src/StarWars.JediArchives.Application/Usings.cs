@@ -15,6 +15,8 @@ global using StarWars.JediArchives.Domain.Models;
 global using StarWars.JediArchives.Infrastructure.QueryParser;
 global using System;
 global using System.Collections.Generic;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Linq;
 global using System.Reflection;
 global using System.Threading;
 global using System.Threading.Tasks;
