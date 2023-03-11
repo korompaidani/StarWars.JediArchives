@@ -10,7 +10,12 @@
 #endif
 #if DEBUG
             services.AddDbContext<StarWarsJediArchivesDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("StarWarsJediArchivesLocalDbConnectionString")));
+                options.UseSqlServer(configuration.GetConnectionString("StarWarsJediArchivesLocalDbConnectionString"),
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                }
+                ));
 #endif
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddScoped<ICategoryRepository, CategoryRepository>();
