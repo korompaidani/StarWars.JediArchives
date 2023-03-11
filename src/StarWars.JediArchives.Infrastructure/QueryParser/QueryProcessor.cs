@@ -1,6 +1,6 @@
 ﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
-    public class QueryProcessor : IQueryProcessor
+    public class QueryProcessor<T> : IQueryProcessor<T> where T : class
     {
         private HashSet<string> _propertyInfos;
         private Stack<QueryOperation> _executableQueryExpressions;
@@ -17,14 +17,9 @@
         /// </summary>
         /// <param name="targetType"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public QueryProcessor(Type targetType)
+        public QueryProcessor()
         {
-            if (targetType is null)
-            {
-                throw new ArgumentNullException(nameof(targetType));
-            }
-
-            TargetType = targetType;
+            TargetType = typeof(T);
             _executableQueryExpressions = new Stack<QueryOperation>();
             
             var propertyCollection = TargetType.GetProperties().Select(a => a.Name).ToHashSet();            
@@ -37,18 +32,14 @@
         /// <param name="targetType"></param>
         /// <param name="propertyCollection"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public QueryProcessor(Type targetType, HashSet<string> propertyCollection)
+        public QueryProcessor(HashSet<string> propertyCollection)
         {
-            if (targetType is null)
-            {
-                throw new ArgumentNullException(nameof(targetType));
-            }
             if (propertyCollection is null)
             {
                 throw new ArgumentNullException(nameof(propertyCollection));
             }
 
-            TargetType = targetType;
+            TargetType = typeof(T);
             _propertyInfos = propertyCollection;
             _processes = new List<KeyValuePair<string, Func<string, QueryOperation>>>();
             _executableQueryExpressions = new Stack<QueryOperation>();

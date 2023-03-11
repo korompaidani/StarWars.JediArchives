@@ -5,9 +5,9 @@
     public class TimelineController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IQueryProcessor _queryProcessor;
+        private readonly IQueryProcessor<TimelineListDto> _queryProcessor;
 
-        public TimelineController(IMediator mediator, IQueryProcessor queryProcessor)
+        public TimelineController(IMediator mediator, IQueryProcessor<TimelineListDto> queryProcessor)
         {
             _mediator = mediator;
             _queryProcessor = queryProcessor;

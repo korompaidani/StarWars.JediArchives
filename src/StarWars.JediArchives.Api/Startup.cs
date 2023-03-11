@@ -23,7 +23,14 @@ namespace StarWars.JediArchives.Api
             });
 
             services.AddQueryProcessor<TimelineListDto>(
-            (targetType) => new QueryProcessorBuilder(targetType)
+            (targetType) => new QueryProcessorBuilder<TimelineListDto>(targetType)
+                .WithNewFilteredRule(@"(\[gte\])")
+                .WithValueFromCharacterUntilEndIndex('=', 0)
+                .WithPropertyFromIndexUntilEndCharacter(0, '[')
+                .WithExpectedComparer(Comparer.Greater));
+                        
+            services.AddQueryProcessor<TimelineDetailDto>(
+            (targetType) => new QueryProcessorBuilder<TimelineDetailDto>(targetType)
                 .WithNewFilteredRule(@"(\[gte\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')

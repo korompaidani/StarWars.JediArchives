@@ -1,10 +1,10 @@
 ﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
-    public class QueryProcessorBuilder : IBuilder<QueryProcessor>, IQueryProcessorBuilder
+    public class QueryProcessorBuilder<T> : IQueryProcessorBuilder, IBuilder<QueryProcessor<T>> where T : class
     {
         private RuleBuilder _ruleBuilder;
         private Type _targetType;
-        private QueryProcessor _queryProcessor;
+        private QueryProcessor<T> _queryProcessor;
         private HashSet<string> _propertyCollection;
         private List<RuleBuilder> _ruleBuilders;
 
@@ -38,28 +38,28 @@
             }
         }
 
-        public QueryProcessor Build()
+        public QueryProcessor<T> Build()
         {
             if (_ruleBuilders.Count == 0)
             {
                 throw new QueryValidationException(new[]{"There is no Rule Defined."});
             }
 
-            _queryProcessor = new QueryProcessor(_targetType, _propertyCollection);
+            _queryProcessor = new QueryProcessor<T>(_propertyCollection);
 
             foreach (var ruleBuilder in _ruleBuilders)
             {
                 var rule = ruleBuilder.Build();
-                _queryProcessor.AddProcess(rule.Key, rule.Value);
+                _queryProcessor.AddProcess(rule.Item1, rule.Item2);
             }
 
             return _queryProcessor;
         }
 
         #region Nested RuleBuilder
-        public class RuleBuilder : IBuilder<KeyValuePair<string, Func<string, QueryOperation>>>, IRuleBuilder
+        public class RuleBuilder : IBuilder<Tuple<string, Func<string, QueryOperation>>>, IRuleBuilder
         {
-            private QueryProcessorBuilder _queryParserBuilder;
+            private QueryProcessorBuilder<T> _queryParserBuilder;
 
             private string? _filter;
             private char? _valueFromCharacter;
@@ -72,9 +72,9 @@
             private HashSet<string> _propertyCollection;
             private Func<int, int, bool> _comparer;
             private Func<dynamic, dynamic> _orderByQuery;
-            private KeyValuePair<string, Func<string, QueryOperation>> _rule;
+            private Tuple<string, Func<string, QueryOperation>> _rule;
 
-            public RuleBuilder(QueryProcessorBuilder queryParserBuilder, string filter, HashSet<string> propertyCollection)
+            public RuleBuilder(QueryProcessorBuilder<T> queryParserBuilder, string filter, HashSet<string> propertyCollection)
             {
                 _queryParserBuilder = queryParserBuilder;
                 _filter = filter;
@@ -130,7 +130,7 @@
                 return _queryParserBuilder;
             }
 
-            public KeyValuePair<string, Func<string, QueryOperation>> Build()
+            public Tuple<string, Func<string, QueryOperation>> Build()
             {
                 ValidateProperties(_valueFromCharacter,_propertyEndChar, _propertyFromIndex, _valueUntilEndIndex);
                 
@@ -143,7 +143,7 @@
                     new HashSet<string>(_propertyCollection, StringComparer.OrdinalIgnoreCase)
                     );
 
-                _rule = new KeyValuePair<string, Func<string, QueryOperation>>(_filter, operation);
+                _rule = new Tuple<string, Func<string, QueryOperation>>(_filter, operation);
                 return _rule;
             }
 
