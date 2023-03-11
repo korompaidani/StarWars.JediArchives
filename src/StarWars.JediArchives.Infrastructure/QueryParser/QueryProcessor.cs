@@ -87,6 +87,10 @@
                 if (foundKey != null)
                 {
                     _oneRunLifeList.Remove(foundKey.Value);
+                    if(_oneRunLifeList.Count == 0)
+                    {
+                        break;
+                    }
                 }
             }
 
