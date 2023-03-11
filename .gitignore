@@ -363,3 +363,8 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /db
+/src/StarWars.JediArchives.Persistence/Migrations/
+/src/StarWars.JediArchives.Persistence/Migrations/20230304205636_InitialMigration.cs
+/src/StarWars.JediArchives.Persistence/Migrations/20230304205636_InitialMigration.Designer.cs
+/src/StarWars.JediArchives.Persistence/Migrations/20230306125320_InitialMigrationForSqlServer.cs
+/src/StarWars.JediArchives.Persistence/Migrations/20230306125320_InitialMigrationForSqlServer.Designer.cs
