@@ -4,7 +4,7 @@
     {
         private RuleBuilder _ruleBuilder;
         private Type _targetType;
-        private QueryProcessor _queryParser;
+        private QueryProcessor _queryProcessor;
         private HashSet<string> _propertyCollection;
         private List<RuleBuilder> _ruleBuilders;
 
@@ -45,15 +45,15 @@
                 throw new QueryValidationException(new[]{"There is no Rule Defined."});
             }
 
-            _queryParser = new QueryProcessor(_targetType, _propertyCollection);
+            _queryProcessor = new QueryProcessor(_targetType, _propertyCollection);
 
             foreach (var ruleBuilder in _ruleBuilders)
             {
                 var rule = ruleBuilder.Build();
-                _queryParser.AddProcess(rule.Key, rule.Value);
+                _queryProcessor.AddProcess(rule.Key, rule.Value);
             }
 
-            return _queryParser;
+            return _queryProcessor;
         }
 
         #region Nested RuleBuilder

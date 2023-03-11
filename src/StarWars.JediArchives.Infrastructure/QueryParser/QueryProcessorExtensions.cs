@@ -7,8 +7,7 @@
             var invoked = queryProcessorBuilder.Invoke(typeof(T));
             var builder = (IBuilder<QueryProcessor>)invoked;
             var queryProcessor = builder.Build();
-
-            serviceProvider.Add(new ServiceDescriptor(typeof(IQueryProcessor<T>), queryProcessor));
+            serviceProvider.Add(new ServiceDescriptor(typeof(IQueryProcessor), queryProcessor));
         }
     }
 }
