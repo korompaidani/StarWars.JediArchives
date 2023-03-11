@@ -1,6 +1,6 @@
 ﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
-    public class QueryProcessor : IQueryPropcessor
+    public class QueryProcessor : IQueryProcessor
     {
         private HashSet<string> _propertyInfos;
         private Stack<QueryOperation> _executableQueryExpressions;

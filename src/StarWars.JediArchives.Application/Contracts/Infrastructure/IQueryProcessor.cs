@@ -1,6 +1,6 @@
 ﻿namespace StarWars.JediArchives.Application.Contracts.Infrastructure
 {
-    public interface IQueryPropcessor
+    public interface IQueryProcessor
     {
         /// <summary>
         /// It Should be call at Linq qery executions (3)
