@@ -8,7 +8,7 @@
             var builder = (IBuilder<QueryProcessor>)invoked;
             var queryProcessor = builder.Build();
 
-            serviceProvider.Add(new ServiceDescriptor(typeof(IQueryProcessor), queryProcessor));
+            serviceProvider.Add(new ServiceDescriptor(typeof(IQueryProcessor<T>), queryProcessor));
         }
     }
 }
