@@ -20,7 +20,14 @@ namespace StarWars.JediArchives.Api
             services.AddCors(options =>
             {
                 options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            });            
+            });
+
+            var myQueryProcessorService = new QueryParserService<TimelineListDto>(services);
+            myQueryProcessorService.UseQueryParser((model) => new QueryProcessorBuilder(model)
+                .WithNewFilteredRule(@"(\[gte\])")
+                .WithValueFromCharacterUntilEndIndex('=', 0)
+                .WithPropertyFromIndexUntilEndCharacter(0, '[')
+                .WithExpectedComparer(Comparer.Greater));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

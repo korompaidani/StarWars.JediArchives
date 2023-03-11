@@ -5,10 +5,12 @@
     public class TimelineController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IQueryPropcessor _queryProcessor;
 
-        public TimelineController(IMediator mediator)
+        public TimelineController(IMediator mediator, IQueryPropcessor queryProcessor)
         {
             _mediator = mediator;
+            _queryProcessor = queryProcessor;
         }
 
         [HttpGet("all", Name = "GetAllTimelines")]
@@ -16,7 +18,9 @@
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines(int? page, int? size, string query)
         {
-            var dtos = await _mediator.Send(new GetTimelineListQuery { Page = page, Size = size, Query = query });
+            _queryProcessor.Run(query);
+
+            var dtos = await _mediator.Send(new GetTimelineListQuery { Page = page, Size = size, Query = query.ToString() });
             return Ok(dtos);
         }
 

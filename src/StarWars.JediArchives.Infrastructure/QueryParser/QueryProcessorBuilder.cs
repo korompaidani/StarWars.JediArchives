@@ -1,8 +1,6 @@
 ﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
-    using StarWars.JediArchives.Application.Exceptions;
-
-    public class QueryProcessorBuilder : IBuilder<QueryProcessor>
+    public class QueryProcessorBuilder : IBuilder<QueryProcessor>, IQueryProcessorBuilder
     {
         private RuleBuilder _ruleBuilder;
         private Type _targetType;
@@ -10,7 +8,7 @@
         private HashSet<string> _propertyCollection;
         private List<RuleBuilder> _ruleBuilders;
 
-        public RuleBuilder WithNewFilteredRule(string filter)
+        public IRuleBuilder WithNewFilteredRule(string filter)
         {
             _ruleBuilder = new RuleBuilder(this, filter, _propertyCollection);
             _ruleBuilders.Add(_ruleBuilder);
@@ -59,7 +57,7 @@
         }
 
         #region Nested RuleBuilder
-        public class RuleBuilder : IBuilder<KeyValuePair<string, Func<string, QueryOperation>>>
+        public class RuleBuilder : IBuilder<KeyValuePair<string, Func<string, QueryOperation>>>, IRuleBuilder
         {
             private QueryProcessorBuilder _queryParserBuilder;
 
@@ -83,21 +81,21 @@
                 _propertyCollection = propertyCollection;
             }
 
-            public RuleBuilder WithValueFromCharacterUntilEndIndex(char fromCharacter, int endIndex)
+            public IRuleBuilder WithValueFromCharacterUntilEndIndex(char fromCharacter, int endIndex)
             {
                 _valueFromCharacter = fromCharacter;
                 _valueUntilEndIndex = endIndex;
                 return this;
             }
 
-            public RuleBuilder WithPropertyFromIndexUntilEndCharacter(int fromIndex, char endCharacter)
+            public IRuleBuilder WithPropertyFromIndexUntilEndCharacter(int fromIndex, char endCharacter)
             {
                 _propertyFromIndex = fromIndex;
                 _propertyEndChar = endCharacter;
                 return this;
             }
 
-            public QueryProcessorBuilder WithExpectedComparer(Comparer expectedComparer)
+            public IQueryProcessorBuilder WithExpectedComparer(Comparer expectedComparer)
             {
                 switch (expectedComparer)
                 {
@@ -115,7 +113,7 @@
                 return _queryParserBuilder;
             }
 
-            public QueryProcessorBuilder WithExpectedOrderBy(OrderBy expectedDirection, string propertyName)
+            public IQueryProcessorBuilder WithExpectedOrderBy(OrderBy expectedDirection, string propertyName)
             {
                 switch (expectedDirection)
                 {
@@ -142,7 +140,8 @@
                     _propertyFromIndex.Value,
                     _valueUntilEndIndex.Value,
                     _comparer,
-                    _propertyCollection);
+                    new HashSet<string>(_propertyCollection, StringComparer.OrdinalIgnoreCase)
+                    );
 
                 _rule = new KeyValuePair<string, Func<string, QueryOperation>>(_filter, operation);
                 return _rule;

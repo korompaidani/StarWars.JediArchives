@@ -3,8 +3,8 @@
     /// <summary>
     /// This is the highest layer of incomping complex Query handling
     /// </summary>
-    public interface IQueryParserService
+    public interface IQueryParserService<T> where T : class
     {
-        ComplexParameters Validate(Type targetType);
+        void UseQueryParser(Func<Type, IQueryProcessorBuilder> queryProcessorBuilder);
     }
 }
