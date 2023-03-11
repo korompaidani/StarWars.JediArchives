@@ -3,6 +3,9 @@
     [TestClass]
     public class QueryProcessorBuilderTest
     {
+        public record TestRecordWithStringProperty(string StringProperty);
+        public record TestRecordWithStringAndIntProperties(string StringProperty, int IntegerProperty);
+
         [TestMethod]
         public void Construct_QueryParser_WithNullTargetTypeParameter_ShouldThrowArgumentNullException()
         {
@@ -10,7 +13,7 @@
             Type targetType = null;
 
             // Act
-            var instantiateDelegate = () => new QueryProcessorBuilder(targetType);
+            var instantiateDelegate = () => new QueryProcessorBuilder<object>(targetType);
 
             // Assert
             Assert.ThrowsException<ArgumentNullException>(() => instantiateDelegate());
@@ -20,10 +23,10 @@
         public void Construct_QueryParser_TypeWithoutIntegerProperties_ShouldThrowQueryValidationException()
         {
             // Arrange
-            var targetType = new { Name = "String" }.GetType();
+            var targetType = new TestRecordWithStringProperty("String").GetType();
 
             // Act
-            var instantiateDelegate = () => new QueryProcessorBuilder(targetType);
+            var instantiateDelegate = () => new QueryProcessorBuilder<TestRecordWithStringProperty>(targetType);
 
             // Assert
             Assert.ThrowsException<QueryValidationException>(() => instantiateDelegate());
@@ -33,10 +36,10 @@
         public void Construct_QueryParser_TypeWithoutAtLeastOneIntegerProperty_ShouldNotThrowException()
         {
             // Arrange
-            var targetType = new { Name = "String", Number = 1 }.GetType();
+            var targetType = new TestRecordWithStringAndIntProperties("String", 1).GetType();
 
             // Act
-            var queryBuilder = new QueryProcessorBuilder(targetType);
+            var queryBuilder = new QueryProcessorBuilder<TestRecordWithStringAndIntProperties>(targetType);
 
             // Assert
             Assert.IsNotNull(queryBuilder);
@@ -46,10 +49,10 @@
         public void Build_QueryParser_WithoutAnyRule_ShouldThrowQueryValidationException()
         {
             // Arrange
-            var targetType = new { Number = 1 }.GetType();
+            var targetType = new TestRecordWithStringAndIntProperties("String", 1).GetType();
 
             // Act
-            var queryBuilder = new QueryProcessorBuilder(targetType);
+            var queryBuilder = new QueryProcessorBuilder<TestRecordWithStringAndIntProperties>(targetType);
 
             // Assert
             Assert.ThrowsException<QueryValidationException>(() => queryBuilder.Build());
