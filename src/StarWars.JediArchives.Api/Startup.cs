@@ -22,8 +22,8 @@ namespace StarWars.JediArchives.Api
                 options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
 
-            var myQueryProcessorService = new QueryProcessorService<TimelineListDto>(services);
-            myQueryProcessorService.AddQueryProcessor((model) => new QueryProcessorBuilder(model)
+            services.AddQueryProcessor<TimelineListDto>(
+            (targetType) => new QueryProcessorBuilder(targetType)
                 .WithNewFilteredRule(@"(\[gte\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
