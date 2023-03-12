@@ -16,20 +16,6 @@
         /// QueryParser contains the dev designed filter based behaviours
         /// </summary>
         /// <param name="targetType"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public QueryProcessor()
-        {
-            TargetType = typeof(T);
-            _executableQueryExpressions = new Stack<QueryOperation>();
-            
-            var propertyCollection = TargetType.GetProperties().Select(a => a.Name).ToHashSet();            
-            _propertyInfos = new HashSet<string>(propertyCollection, StringComparer.InvariantCultureIgnoreCase);
-        }
-
-        /// <summary>
-        /// QueryParser contains the dev designed filter based behaviours
-        /// </summary>
-        /// <param name="targetType"></param>
         /// <param name="propertyCollection"></param>
         /// <exception cref="ArgumentNullException"></exception>
         public QueryProcessor(HashSet<string> propertyCollection)
