@@ -193,15 +193,15 @@ As far as I mentioned I have lot of things to do, so I this solution has a lot o
 * It only works with 'int32' Properties. FOR NOW
 * There are limited options to define how the paramter looks like after it is recognized based on reex rule. But actual implementation good enough for most cases.
   So you only have this two methods:
-  ```C#
-    WithValueFromCharacterUntilEndIndex(char charFrom, int indexFromEnd)
-    WithPropertyFromIndexUntilEndCharacter(int fromIndex, char untilEndChar)
-  ```
+```C#
+    WithValueFromCharacterUntilEndIndex(char charFrom, int indexFromEnd);
+    WithPropertyFromIndexUntilEndCharacter(int fromIndex, char untilEndChar);
+```
 * There are a lot of unwritten test :) YET
 
 Please feel free to use it but don't forget it is my pet project which is under development. Please don't use it without life insurance ;) -just kiddin
 
-## Legal Notes or something like that 
+# Legal Notes or something like that 
                                                              
 Side notes for the Title and Repository name:
 Star Wars and Jedi are trademarked expressions.
