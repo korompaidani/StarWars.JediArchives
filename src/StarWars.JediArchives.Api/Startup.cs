@@ -22,19 +22,14 @@ namespace StarWars.JediArchives.Api
                 options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
 
-            services.AddQueryProcessor<TimelineListDto>(
-            (targetType) => new QueryProcessorStatedBuilder<TimelineListDto>(targetType)
+            services.AddQueryProcessor<TimelineListDto>( builder =>
+            {
+                builder
                 .WithNewFilteredRule(@"(\[gte\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater));
-                        
-            services.AddQueryProcessor<TimelineDetailDto>(
-            (targetType) => new QueryProcessorStatedBuilder<TimelineDetailDto>(targetType)
-                .WithNewFilteredRule(@"(\[gte\])")
-                .WithValueFromCharacterUntilEndIndex('=', 0)
-                .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater));
+                .WithExpectedComparer(Comparer.Greater);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
