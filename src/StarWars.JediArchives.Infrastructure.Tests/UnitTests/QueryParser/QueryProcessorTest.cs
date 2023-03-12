@@ -73,25 +73,9 @@
 
         #endregion
 
-        private HashSet<string> _propertyCollection;
-
         [TestInitialize]
         public void TestInitialize()
         {
-            _propertyCollection = new HashSet<string> { "StartYear" };
-        }
-
-        [TestMethod]
-        public void Construct_QueryProcessor_WithNullPropertyCollectionParameter_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            HashSet<string> properties = null;
-
-            // Act
-            var instantiateDelegate = () => new QueryProcessor<object>(propertyCollection: properties);
-
-            // Assert
-            Assert.ThrowsException<ArgumentNullException>(instantiateDelegate);
         }
 
         [TestMethod]
@@ -99,7 +83,7 @@
         public void AddProcess_WithFilterGreaterThanGivenValue_ShouldBeTrue(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -120,7 +104,7 @@
         public void AddProcess_WithFilterLessThanGivenValue_ShouldBeTrue(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -141,7 +125,7 @@
         public void AddProcess_WithFilterEqualToGivenValue_ShouldBeTrue(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -162,7 +146,7 @@
         public void AddProcess_WithFilterEqualButGivenGreater_ShouldBeFalse(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -183,7 +167,7 @@
         public void AddProcess_WithFilterEqualButGivenLess_ShouldBeFalse(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -204,7 +188,7 @@
         public void AddProcess_WithGreaterFilterEqual_ShouldShouldThrowException(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -222,7 +206,7 @@
         public void AddProcess_WithLessFilterEqual_ShouldShouldThrowException(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -240,7 +224,7 @@
         public void AddProcess_EqualButInputGreater_ShouldShouldThrowException(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -258,7 +242,7 @@
         public void AddProcess_EqualButInputLess_ShouldShouldThrowException(string filter, string userdefinedCondition, int compareByValue, Func<string, QueryOperation> process)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);
@@ -276,7 +260,7 @@
         public void AddProcess_WithFilterGreaterBeingRanOnCollection_ShouldBeResultsMoreThanOneItem(string filter, string userdefinedCondition, List<D> compareByValues, Func<string, QueryOperation> process, int expectedCount)
         {
             // Arrange
-            var queryProcessor = new QueryProcessor<object>(_propertyCollection);
+            var queryProcessor = new QueryProcessor<D>();
 
             //// Act
             queryProcessor.AddProcess(filter, process);

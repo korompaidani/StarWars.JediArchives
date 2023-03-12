@@ -45,7 +45,7 @@
                 throw new QueryValidationException(new[]{"There is no Rule Defined."});
             }
 
-            _queryProcessor = new QueryProcessor<T>(_propertyCollection);
+            _queryProcessor = new QueryProcessor<T>();
 
             foreach (var ruleBuilder in _ruleBuilders)
             {

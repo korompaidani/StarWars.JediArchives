@@ -2,7 +2,6 @@
 {
     public class QueryProcessor<T> : IQueryProcessor<T> where T : class
     {
-        private HashSet<string> _propertyInfos;
         private Stack<QueryOperation> _executableQueryExpressions;
 
         private List<KeyValuePair<string, Func<string, QueryOperation>>> _processes;
@@ -16,17 +15,10 @@
         /// QueryParser contains the dev designed filter based behaviours
         /// </summary>
         /// <param name="targetType"></param>
-        /// <param name="propertyCollection"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public QueryProcessor(HashSet<string> propertyCollection)
+        public QueryProcessor()
         {
-            if (propertyCollection is null)
-            {
-                throw new ArgumentNullException(nameof(propertyCollection));
-            }
-
             TargetType = typeof(T);
-            _propertyInfos = propertyCollection;
             _processes = new List<KeyValuePair<string, Func<string, QueryOperation>>>();
             _executableQueryExpressions = new Stack<QueryOperation>();
         }
