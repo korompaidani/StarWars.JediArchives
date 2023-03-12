@@ -4,6 +4,8 @@
     {
         private Stack<QueryOperation> _executableQueryExpressions;
 
+        private char[] splitAndAlternateCharacters = { '%', '&' };
+
         private List<KeyValuePair<string, Func<string, QueryOperation>>> _processes;
         private List<KeyValuePair<string, Func<string, QueryOperation>>> Processes => _processes.ToList();
 
@@ -20,7 +22,6 @@
         {
             TargetType = typeof(T);
             _processes = new List<KeyValuePair<string, Func<string, QueryOperation>>>();
-            _executableQueryExpressions = new Stack<QueryOperation>();
         }
 
         public void AddProcess(string queryFilterCondition, Func<string, QueryOperation> ruleForFilteredItem)
@@ -31,7 +32,9 @@
 
         public void Run(string incomingAggregatedParameter)
         {
-            var incomingParameters = incomingAggregatedParameter.Split('&');
+            _executableQueryExpressions = new Stack<QueryOperation>();
+            var standardizedIncomingAggregatedParaneters = incomingAggregatedParameter.Replace(splitAndAlternateCharacters[0], splitAndAlternateCharacters[1]);
+            var incomingParameters = standardizedIncomingAggregatedParaneters.Split(splitAndAlternateCharacters[1]);
             var _oneRunLifeList = Processes;
 
             foreach (var item in incomingParameters)
