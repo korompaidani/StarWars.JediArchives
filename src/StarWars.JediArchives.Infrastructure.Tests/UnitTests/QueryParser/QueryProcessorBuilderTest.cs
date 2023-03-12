@@ -13,7 +13,7 @@
             Type targetType = null;
 
             // Act
-            var instantiateDelegate = () => new QueryProcessorBuilder<object>(targetType);
+            var instantiateDelegate = () => new QueryProcessorStatedBuilder<object>(targetType);
 
             // Assert
             Assert.ThrowsException<ArgumentNullException>(() => instantiateDelegate());
@@ -26,7 +26,7 @@
             var targetType = new TestRecordWithStringProperty("String").GetType();
 
             // Act
-            var instantiateDelegate = () => new QueryProcessorBuilder<TestRecordWithStringProperty>(targetType);
+            var instantiateDelegate = () => new QueryProcessorStatedBuilder<TestRecordWithStringProperty>(targetType);
 
             // Assert
             Assert.ThrowsException<QueryValidationException>(() => instantiateDelegate());
@@ -39,7 +39,7 @@
             var targetType = new TestRecordWithStringAndIntProperties("String", 1).GetType();
 
             // Act
-            var queryBuilder = new QueryProcessorBuilder<TestRecordWithStringAndIntProperties>(targetType);
+            var queryBuilder = new QueryProcessorStatedBuilder<TestRecordWithStringAndIntProperties>(targetType);
 
             // Assert
             Assert.IsNotNull(queryBuilder);
@@ -52,7 +52,7 @@
             var targetType = new TestRecordWithStringAndIntProperties("String", 1).GetType();
 
             // Act
-            var queryBuilder = new QueryProcessorBuilder<TestRecordWithStringAndIntProperties>(targetType);
+            var queryBuilder = new QueryProcessorStatedBuilder<TestRecordWithStringAndIntProperties>(targetType);
 
             // Assert
             Assert.ThrowsException<QueryValidationException>(() => queryBuilder.Build());

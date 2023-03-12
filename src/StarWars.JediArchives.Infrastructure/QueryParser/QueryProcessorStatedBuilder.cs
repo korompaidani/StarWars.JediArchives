@@ -1,6 +1,6 @@
 ﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
 {
-    public class QueryProcessorBuilder<T> : IQueryProcessorBuilder, IBuilder<QueryProcessor<T>> where T : class
+    public class QueryProcessorStatedBuilder<T> : IQueryProcessorBuilder, IBuilder<QueryProcessor<T>> where T : class
     {
         private RuleBuilder _ruleBuilder;
         private Type _targetType;
@@ -21,7 +21,7 @@
         /// <param name="targetType">Only integer properties are supported in this version</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="QueryValidationException"></exception>
-        public QueryProcessorBuilder(Type targetType)
+        public QueryProcessorStatedBuilder(Type targetType)
         {
             if(targetType is null)
             {
@@ -59,7 +59,7 @@
         #region Nested RuleBuilder
         public class RuleBuilder : IBuilder<Tuple<string, Func<string, QueryOperation>>>, IRuleBuilder
         {
-            private QueryProcessorBuilder<T> _queryParserBuilder;
+            private QueryProcessorStatedBuilder<T> _queryParserBuilder;
 
             private string? _filter;
             private char? _valueFromCharacter;
@@ -74,7 +74,7 @@
             private Func<dynamic, dynamic> _orderByQuery;
             private Tuple<string, Func<string, QueryOperation>> _rule;
 
-            public RuleBuilder(QueryProcessorBuilder<T> queryParserBuilder, string filter, HashSet<string> propertyCollection)
+            public RuleBuilder(QueryProcessorStatedBuilder<T> queryParserBuilder, string filter, HashSet<string> propertyCollection)
             {
                 _queryParserBuilder = queryParserBuilder;
                 _filter = filter;
