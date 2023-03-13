@@ -2,9 +2,22 @@
 {
     public class GetTimelineListQuery : IParametrizedDto, IRequest<List<TimelineListDto>>
     {
-        public int? Count { get; set; }
-        public int? Page { get; set; }
-        public int? Size { get; set; }
-        public string Query { get; set; }
+        const int MaxPageSize = 50;
+        private int _pageSize = 10;
+
+        public int PageNumber { get; set; } = 1;
+        public int PageSize
+        {
+            get
+            {
+                return _pageSize;
+            }
+            set
+            {
+                _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
+            }
+        }
+
+        public string QueryString { get; set; }
     }
 }

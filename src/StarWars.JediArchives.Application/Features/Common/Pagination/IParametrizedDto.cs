@@ -2,9 +2,8 @@
 {
     public interface IParametrizedDto
     {
-        int? Count { get; set; }
-        int? Page { get; set; }
-        int? Size { get; set; }
-        string Query { get; set; }
+        int PageNumber { get; set; }
+        int PageSize { get; set; }
+        string QueryString { get; set; }
     }
 }

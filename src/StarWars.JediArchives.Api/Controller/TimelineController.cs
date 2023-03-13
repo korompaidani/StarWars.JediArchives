@@ -16,11 +16,11 @@
         [HttpGet("all", Name = "GetAllTimelines")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines(int? page, int? size, string query)
+        public async Task<ActionResult<List<TimelineListDto>>> GetAllTimelines([FromQuery] GetTimelineListQuery timelineListQuery)
         {
-            _queryProcessor.Run(query);
+            //_queryProcessor.Run(query);
 
-            var dtos = await _mediator.Send(new GetTimelineListQuery { Page = page, Size = size, Query = query.ToString() });
+            var dtos = await _mediator.Send(timelineListQuery);
             return Ok(dtos);
         }
 

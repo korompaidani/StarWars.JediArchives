@@ -17,14 +17,14 @@
         {            
             IEnumerable<Timeline> timelineList;
 
-            if (request.Page is null || request.Size is null)
+            if (request.PageNumber == 0 || request.PageSize == 0)
             {
                 timelineList = (await _timelineRepository.ListAllAsync());
             }
             else
             {
                 await ValidateRequestAsync(request);
-                timelineList = await _timelineRepository.GetPagedReponseAsync(request.Page.Value, request.Size.Value);
+                timelineList = await _timelineRepository.GetPagedReponseAsync(request.PageNumber, request.PageSize.Value);
             }
 
             return _mapper.Map<List<TimelineListDto>>(timelineList);

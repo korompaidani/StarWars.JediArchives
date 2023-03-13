@@ -4,10 +4,10 @@
     {
         public GetTimelineListQueryValidator()
         {
-            RuleFor(p => p.Page)
+            RuleFor(p => p.PageNumber)
                 .GreaterThan(0);
 
-            RuleFor(p => p.Size)
+            RuleFor(p => p.PageSize)
                 .GreaterThan(0);
         }
     }
