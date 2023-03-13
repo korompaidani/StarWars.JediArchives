@@ -1,19 +1,16 @@
 # StarWars.JediArchives
 
-This is the Backend of my Star Wars universe. It will feed any client of my related frontend applications in my ecosystem.
-This has been created basically from two main purposes:
-1. Having fun coding, designing new feautures in Clean Architecture style
-2. Digging deeper into technologies and solving ongoing problems
+This is the backend of my Star Wars universe, which will feed any client in my ecosystem of related frontend applications. I created this project with two main purposes in mind:
 
-The first one is clear but the second is more complex. My intention is to solve existing problems in my own way and than compare them to existing solution.
-It will be interesting and I think more effective after realizing problems in depth and designing working solutions to understand someone else's existing solutions.
-I will create POCs here and maybe it will be grown as separated side projects. If it will be good enough I will consider to publish them as a free licensed nuget package.
+1. Having fun while coding and designing new features in a Clean Architecture style.
+2. Delving deeper into technologies and solving ongoing problems.
+
+The first purpose is clear, but the second one is a bit more complex. My intention is to solve existing problems in my own way and compare them to existing solutions. After understanding the problems in depth and designing working solutions, it will be interesting and more effective to compare them to someone else's existing solutions. I will create POCs here, and they may grow into separate side projects. If they are good enough, I will consider publishing them as a free licensed NuGet package.
 
 # Side Project: URL query parameter handling
 
 ## Problem
-If you have an endpoint on backend, sometimes you need to introduce query parameters. This sounds very easy, because the major problems are handled by the framework. In a default project you don't have to take care of parsing, which can be customized e.g using IParsable<T> implementations for annotated items. Thanks to this solution you are able to parse all parameter you need to process.
-But there is a problem here. If you extend the number of possible parameters you have to extend your parsers or extend the existing bindign mechanism. And finally if the data is already there in an appropriate format, you have to design a pattern how each query paramater should be handled. Meaning: Where your query peaces are together somewhere in a lower layer of your application where the database will be querried you always have to maintain and take care of changes. And somethimes it would be useful to validate data somewhere else closer to the incoming paramaters.
+If you have an endpoint on the backend, sometimes you need to introduce query parameters. This sounds easy because the major problems are handled by the framework. In a default project, you don't have to take care of parsing, which can be customized, for example, using IParsable implementations for annotated items. Thanks to this solution, you are able to parse all parameters you need to process. However, there is a problem here. If you extend the number of possible parameters, you have to extend your parsers or extend the existing binding mechanism. Finally, if the data is already in an appropriate format, you have to design a pattern for how each query parameter should be handled. This means that where your query pieces are brought together somewhere in a lower layer of your application where the database will be queried, you always have to maintain and take care of changes. Sometimes it would be useful to validate data somewhere else closer to the incoming parameters.
 
 ## The Idea
 I would like to develop a mechanism which can help in the following:
