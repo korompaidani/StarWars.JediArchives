@@ -7,6 +7,7 @@ global using Microsoft.Extensions.Logging;
 global using StarWars.JediArchives.Application.Contracts.Persistence;
 global using StarWars.JediArchives.Application.Exceptions;
 global using StarWars.JediArchives.Application.Features.Common.Dto;
+global using StarWars.JediArchives.Application.Features.Common.Pagination;
 global using StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline;
 global using StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline;
 global using StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineDetail;

@@ -1,6 +1,6 @@
 ﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
 {
-    public class GetTimelineListQuery : IParametrizedDto, IRequest<List<TimelineListDto>>
+    public class GetTimelineListQuery : IParametrizedDto, IRequest<PagedList<TimelineListDto>>
     {
         const int MaxPageSize = 50;
         private int _pageSize = 10;

@@ -1,6 +1,6 @@
 ﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
 {
-    public class GetTimelineListQueryHandler : IRequestHandler<GetTimelineListQuery, List<TimelineListDto>>
+    public class GetTimelineListQueryHandler : IRequestHandler<GetTimelineListQuery, PagedList<TimelineListDto>>
     {
         private readonly ITimelineRepository _timelineRepository;
         private readonly IMapper _mapper;
@@ -13,21 +13,20 @@
             _logger = logger;
         }
 
-        public async Task<List<TimelineListDto>> Handle(GetTimelineListQuery request, CancellationToken cancellationToken)
+        public async Task<PagedList<TimelineListDto>> Handle(GetTimelineListQuery request, CancellationToken cancellationToken)
         {            
-            IEnumerable<Timeline> timelineList;
+            IEnumerable<Timeline> timelineList = null;
 
-            if (request.PageNumber == 0 || request.PageSize == 0)
+            if (request.PageNumber != 0 && request.PageSize != 0)
             {
-                timelineList = (await _timelineRepository.ListAllAsync());
+                timelineList = PagedList<Timeline>.ToPagedList((await _timelineRepository.ListAllAsync()), request.PageNumber, request.PageSize);
             }
             else
             {
                 await ValidateRequestAsync(request);
-                timelineList = await _timelineRepository.GetPagedReponseAsync(request.PageNumber, request.PageSize.Value);
+                timelineList = PagedList<Timeline>.ToPagedList((await _timelineRepository.GetPagedReponseAsync(request.PageNumber, request.PageSize)), request.PageNumber, request.PageSize);
             }
-
-            return _mapper.Map<List<TimelineListDto>>(timelineList);
+            return _mapper.Map<PagedList<TimelineListDto>>(timelineList);
         }
 
         private async Task ValidateRequestAsync(GetTimelineListQuery request)

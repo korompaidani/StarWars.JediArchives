@@ -14,6 +14,7 @@ global using StarWars.JediArchives.Api.Middleware;
 global using StarWars.JediArchives.Application;
 global using StarWars.JediArchives.Application.Contracts.Infrastructure;
 global using StarWars.JediArchives.Application.Exceptions;
+global using StarWars.JediArchives.Application.Features.Common.Pagination;
 global using StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline;
 global using StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTimeline;
 global using StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline;
@@ -22,7 +23,6 @@ global using StarWars.JediArchives.Application.Features.Timelines.Queries.GetTim
 global using StarWars.JediArchives.Infrastructure.QueryParser;
 global using StarWars.JediArchives.Persistence;
 global using System;
-global using System.Collections.Generic;
 global using System.Net;
 global using System.Threading.Tasks;
 global using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
