@@ -26,7 +26,7 @@
                 var dest = context.Mapper.Map<TSource, TDestination>(item);
                 destination.Add(dest);
             }
-            destination.TotalCount = source.TotalCount;
+            destination.TotalPagesCount = source.TotalPagesCount;
             destination.PageSize = source.PageSize;
             destination.CurrentPage = source.CurrentPage;
 

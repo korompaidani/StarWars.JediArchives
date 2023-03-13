@@ -4,6 +4,7 @@ global using FluentValidation.Results;
 global using MediatR;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
+global using StarWars.JediArchives.Application.Contracts.Infrastructure;
 global using StarWars.JediArchives.Application.Contracts.Persistence;
 global using StarWars.JediArchives.Application.Exceptions;
 global using StarWars.JediArchives.Application.Features.Common.Dto;

@@ -7,24 +7,55 @@
         {
             get
             {
-                return (int)Math.Ceiling(TotalCount / (double)PageSize);
+                return (int)Math.Ceiling(TotalPagesCount / (double)PageSize);
             }
         }
 
         public int PageSize { get; set; }
-        public int TotalCount { get; set; }
+        public int TotalPagesCount { get; set; }
 
         public bool HasPrevious => CurrentPage > 1;
         public bool HasNext => CurrentPage < TotalPages;
 
-        public PagedList() { }
+        /// <summary>
+        /// TODO: Temporary solution because my custom converter needs this to ba able to map
+        /// </summary>
+        public PagedList() 
+        {
+        }
+
         public PagedList(List<T> items, int count, int pageNumber, int pageSize)
         {
-            TotalCount = count;
+            TotalPagesCount = count;
             PageSize = pageSize;
             CurrentPage = pageNumber;
 
             AddRange(items);
+        }
+
+        public string GetNextPageLink(string routeTemplate)
+        {
+            return HasNext ? $"{routeTemplate}?pageNumber={CurrentPage + 1}&pageSize={PageSize}" : null;
+        }
+
+        public string GetPreviousPageLink(string routeTemplate)
+        {
+            return HasPrevious ? $"{routeTemplate}?pageNumber={CurrentPage - 1}&pageSize={PageSize}" : null;
+        }
+
+        public string GetFirstPageLink(string routeTemplate)
+        {
+            return $"{routeTemplate}?pageNumber={1}&pageSize={PageSize}";
+        }
+
+        public string GetLastPageLink(string routeTemplate)
+        {
+            return $"{routeTemplate}?pageNumber={TotalPages}&pageSize={PageSize}";
+        }
+
+        public string GetAllPageLink(string routeTemplate)
+        {
+            return $"{routeTemplate}";
         }
 
         public static PagedList<T> ToPagedList(IEnumerable<T> source, int pageNumber, int pageSize)
