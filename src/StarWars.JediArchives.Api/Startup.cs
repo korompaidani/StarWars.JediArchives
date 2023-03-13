@@ -28,7 +28,17 @@ namespace StarWars.JediArchives.Api
                 .WithNewFilteredRule(@"(\[gte\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater);
+                .WithExpectedComparer(Comparer.Greater)
+
+                .WithNewFilteredRule(@"(\[qt\])")
+                .WithValueFromCharacterUntilEndIndex('=', 0)
+                .WithPropertyFromIndexUntilEndCharacter(0, '[')
+                .WithExpectedComparer(Comparer.Equal)
+                
+                .WithNewFilteredRule(@"(\[lte\])")
+                .WithValueFromCharacterUntilEndIndex('=', 0)
+                .WithPropertyFromIndexUntilEndCharacter(0, '[')
+                .WithExpectedComparer(Comparer.Less);
             });
         }
 
