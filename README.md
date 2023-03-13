@@ -90,12 +90,12 @@ Oh.. Sounds good but.. is it good for only one parameter kind? You're right, tha
                 .WithNewFilteredRule(@"(\[lte\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater)
+                .WithExpectedComparer(Comparer.Less)
 
                 .WithNewFilteredRule(@"(\[qt\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater);
+                .WithExpectedComparer(Comparer.Equal);
             });
 ```
 Now you have 3 different rules for one model/vm/record/dto. But do you need more than one?
@@ -118,12 +118,12 @@ So you can register more rules and more types this way:
                 .WithNewFilteredRule(@"(\[lte\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater)
+                .WithExpectedComparer(Comparer.Less)
 
-                .WithNewFilteredRule(@"(\[qt\])")
+                .WithNewFilteredRule(@"(\[eq\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater);
+                .WithExpectedComparer(Comparer.Equal);
             });
 
             services.AddQueryProcessor<CharacterListDto>(builder =>
@@ -137,12 +137,12 @@ So you can register more rules and more types this way:
                 .WithNewFilteredRule(@"(\[lte\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater)
+                .WithExpectedComparer(Comparer.Less)
 
                 .WithNewFilteredRule(@"(\[qt\])")
                 .WithValueFromCharacterUntilEndIndex('=', 0)
                 .WithPropertyFromIndexUntilEndCharacter(0, '[')
-                .WithExpectedComparer(Comparer.Greater);
+                .WithExpectedComparer(Comparer.Equal);
             });
 ```
 
