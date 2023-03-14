@@ -29,7 +29,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44355/api/timeline/all",
+					"raw": "https://localhost:44355/api/v1/timeline/all?query=startYear[gte]=10%26Start_Year[lte]=10%26startyear[qt]=10",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -37,8 +37,15 @@
 					"port": "44355",
 					"path": [
 						"api",
+						"v1",
 						"timeline",
 						"all"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "startYear[gte]=10%26Start_Year[lte]=10%26startyear[qt]=10"
+						}
 					]
 				}
 			},
@@ -63,7 +70,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"timelineId\": \"6d26ece4-b0e2-4d27-bed7-217572ecda34\",\n        \"name\": \"Jedi Fallen Order\",\n        \"description\": \"\",\n        \"startYear\": -19,\n        \"endYear\": -14,\n        \"length\": 5,\n        \"imageUrl\": \"\",\n        \"image\": null\n    }"
+					"raw": "    {\n        \"timelineId\": \"c6bd95f9-37c2-4ad8-493b-08db1e54c808\",\n        \"name\": \"Jedi Fallen Order\",\n        \"description\": \"Story about Kal Kestis\",\n        \"startYear\": -19,\n        \"endYear\": -14,\n        \"length\": 5,\n        \"imageUrl\": \"\",\n        \"image\": null,\n        \"categoryid\": \"ceda4792-392a-4920-a5b5-9b6abe04fca5\"\n    }"
 				},
 				"url": {
 					"raw": "https://localhost:44355/api/v1/timeline/",
@@ -101,7 +108,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"timelineId\": \"6d26ece4-b0e2-4d27-bed7-217572ecda34\",\n        \"name\": \"Jedi Fallen Order\",\n        \"description\": \"\",\n        \"startYear\": -19,\n        \"endYear\": -14,\n        \"length\": 5,\n        \"imageUrl\": \"\",\n        \"image\": null,\n        \"categoryid\": \"ceda4792-392a-4920-a5b5-9b6abe04fca5\"\n    }"
+					"raw": "    {\n        \"name\": \"Jedi Fallen Order\",\n        \"description\": \"\",\n        \"startYear\": -19,\n        \"endYear\": -14,\n        \"length\": 5,\n        \"imageUrl\": \"\",\n        \"image\": null,\n        \"categoryid\": \"ceda4792-392a-4920-a5b5-9b6abe04fca5\"\n    }"
 				},
 				"url": {
 					"raw": "https://localhost:44355/api/v1/timeline/",
@@ -142,7 +149,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44355/api/v1/timeline/{6d26ece4-b0e2-4d27-bed7-217572ecda34}",
+					"raw": "https://localhost:44355/api/v1/timeline/{c6bd95f9-37c2-4ad8-493b-08db1e54c808}",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -152,7 +159,7 @@
 						"api",
 						"v1",
 						"timeline",
-						"{6d26ece4-b0e2-4d27-bed7-217572ecda34}"
+						"{c6bd95f9-37c2-4ad8-493b-08db1e54c808}"
 					]
 				}
 			},
@@ -181,7 +188,46 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44355/api/v1/timeline/all",
+					"raw": "https://localhost:44355/api/v1/timeline/{c6bd95f9-37c2-4ad8-493b-08db1e54c808}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44355",
+					"path": [
+						"api",
+						"v1",
+						"timeline",
+						"{c6bd95f9-37c2-4ad8-493b-08db1e54c808}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Timelines with page and size",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44355/api/v1/timeline/all?query=startYear[gte]=-100%Start_Year[lte]=10%startyear[qt]=10",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -192,6 +238,22 @@
 						"v1",
 						"timeline",
 						"all"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "query",
+							"value": "startYear[gte]=-100%Start_Year[lte]=10%startyear[qt]=10"
+						}
 					]
 				}
 			},
