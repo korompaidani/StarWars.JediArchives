@@ -2,12 +2,14 @@
 {
     public class GetTimelineListQueryHandler : AbstractHandler<IEnumerable<Timeline>>, IRequestHandler<GetTimelineListQuery, PagedList<TimelineListDto>>
     {
-        private const string TimelineListCacheKey = "timelineList";
+        private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
 
         private readonly ITimelineRepository _timelineRepository;
         private readonly IMapper _mapper;
         private readonly IQueryProcessor<TimelineListDto> _queryProcessor;
         private readonly ILogger<GetTimelineListQueryHandler> _logger;
+
+        protected override string CacheKey => "timelineList";
 
         public GetTimelineListQueryHandler(ITimelineRepository timelineRepository, IMapper mapper, IQueryProcessor<TimelineListDto> queryProcessor, IMemoryCache cache, ILogger<GetTimelineListQueryHandler> logger) : base(cache)
         {
@@ -23,24 +25,32 @@
 
             IEnumerable<Timeline> timeListFromRepository = null;
 
-            if (TryGetFromCache(TimelineListCacheKey, out timeListFromRepository))
+            try
             {
-                _logger.LogInformation($"{nameof(GetTimelineListQueryHandler)}.{nameof(Handle)}: {nameof(IEnumerable<Timeline>)} entries was found in cache.");
+                await semaphore.WaitAsync();
+                if (TryGetFromCache(CacheKey, out timeListFromRepository))
+                {
+                    _logger.LogInformation($"{nameof(GetTimelineListQueryHandler)}.{nameof(Handle)}: {nameof(IEnumerable<Timeline>)} entries was found in cache.");
+                }
+                else
+                {
+                    timeListFromRepository = await _timelineRepository.ListAllAsync();
+                    _logger.LogInformation($"{nameof(GetTimelineListQueryHandler)}.{nameof(Handle)}: {nameof(IEnumerable<Timeline>)} entries was not found in cache. Data are requested from the db.");
+
+                    AddToCache(CacheKey, timeListFromRepository);
+                }
+                bool isIgnored = false;
+                CheckPaginationWasRequestedByUser(request, ref isIgnored);
+
+                timeListFromRepository = PagedList<Timeline>.ToPagedList((await _timelineRepository.ListAllAsync()), request.PageNumber, request.PageSize, isIgnored);
+
+                return _mapper.Map<PagedList<TimelineListDto>>(timeListFromRepository);
+
             }
-            else
+            finally
             {
-                timeListFromRepository = await _timelineRepository.ListAllAsync();
-                _logger.LogInformation($"{nameof(GetTimelineListQueryHandler)}.{nameof(Handle)}: {nameof(IEnumerable<Timeline>)} entries was not found in cache. Data are requested from the db.");
-
-                AddToCache(TimelineListCacheKey, timeListFromRepository);
+                semaphore.Release();
             }
-
-            bool isIgnored = false;
-            CheckPaginationWasRequestedByUser(request, ref isIgnored);
-
-            timeListFromRepository = PagedList<Timeline>.ToPagedList((await _timelineRepository.ListAllAsync()), request.PageNumber, request.PageSize, isIgnored);
-
-            return _mapper.Map<PagedList<TimelineListDto>>(timeListFromRepository);
         }
 
         private void CheckPaginationWasRequestedByUser(GetTimelineListQuery request, ref bool isIgnored)

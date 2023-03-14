@@ -1,12 +1,14 @@
 ﻿namespace StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline
 {
-    public class CreateTimelineCommandHandler : IRequestHandler<CreateTimelineCommand, Guid>
+    public class CreateTimelineCommandHandler : AbstractHandler<IEnumerable<Timeline>>, IRequestHandler<CreateTimelineCommand, Guid>
     {
         private readonly ITimelineRepository _timelineRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<CreateTimelineCommandHandler> _logger;
 
-        public CreateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper, ILogger<CreateTimelineCommandHandler> logger)
+        protected override object CacheKey => typeof(IEnumerable<Timeline>);
+
+        public CreateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper, IMemoryCache cache, ILogger<CreateTimelineCommandHandler> logger) : base(cache)
         {
             _timelineRepository = timelineRepository;
             _mapper = mapper;
@@ -19,6 +21,7 @@
 
             var timeline = _mapper.Map<Timeline>(request);
             var addedTimeline = await _timelineRepository.AddAsync(timeline);
+            RemoveFromCache(CacheKey);
 
             return addedTimeline.TimelineId;
         }

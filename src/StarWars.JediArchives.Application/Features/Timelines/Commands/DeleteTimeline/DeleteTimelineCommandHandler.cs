@@ -1,11 +1,12 @@
 ﻿namespace StarWars.JediArchives.Application.Features.Timelines.Commands.DeleteTimeline
 {
-    public class DeleteTimelineCommandHandler : IRequestHandler<DeleteTimelineCommand>
+    public class DeleteTimelineCommandHandler : AbstractHandler<IEnumerable<Timeline>>, IRequestHandler<DeleteTimelineCommand>
     {
         private readonly ITimelineRepository _timelineRepository;
         private readonly ILogger<UpdateTimelineCommandHandler> _logger;
 
-        public DeleteTimelineCommandHandler(ITimelineRepository timelineRepository, ILogger<UpdateTimelineCommandHandler> logger)
+        protected override object CacheKey => typeof(IEnumerable<Timeline>);
+        public DeleteTimelineCommandHandler(ITimelineRepository timelineRepository, IMemoryCache cache, ILogger<UpdateTimelineCommandHandler> logger) : base(cache)
         {
             _timelineRepository = timelineRepository;
             _logger = logger;
@@ -15,6 +16,7 @@
         {
             var timelineTobeDeleted = await GetExistingAsync(request.TimelineId);
             await _timelineRepository.DeleteAsync(timelineTobeDeleted);
+            RemoveFromCache(CacheKey);
         }
 
         private async Task<Timeline> GetExistingAsync(Guid request)

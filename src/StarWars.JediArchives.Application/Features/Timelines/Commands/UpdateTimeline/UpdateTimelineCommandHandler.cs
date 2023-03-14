@@ -1,12 +1,12 @@
 ﻿namespace StarWars.JediArchives.Application.Features.Timelines.Commands.UpdateTimeline
 {
-    public class UpdateTimelineCommandHandler : IRequestHandler<UpdateTimelineCommand>
+    public class UpdateTimelineCommandHandler : AbstractHandler<IEnumerable<Timeline>>, IRequestHandler<UpdateTimelineCommand>
     {
         private readonly ITimelineRepository _timelineRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<UpdateTimelineCommandHandler> _logger;
-
-        public UpdateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper, ILogger<UpdateTimelineCommandHandler> logger)
+        protected override object CacheKey => typeof(IEnumerable<Timeline>);
+        public UpdateTimelineCommandHandler(ITimelineRepository timelineRepository, IMapper mapper, IMemoryCache cache, ILogger<UpdateTimelineCommandHandler> logger) : base(cache)
         {
             _timelineRepository = timelineRepository;
             _mapper = mapper;
@@ -19,6 +19,7 @@
             var timeline = await GetExistingAsync(request.TimelineId);
             _mapper.Map(request, timeline, typeof(UpdateTimelineCommand), typeof(Timeline));
             await _timelineRepository.UpdateAsync(timeline);
+            RemoveFromCache(CacheKey);
         }
 
         private async Task<Timeline> GetExistingAsync(Guid request)

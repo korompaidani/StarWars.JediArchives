@@ -2,6 +2,8 @@
 {
     public abstract class AbstractHandler<T> : ICacheable<T>
     {
+        protected abstract object CacheKey { get; }
+
         private readonly IMemoryCache _cache;
         public AbstractHandler(IMemoryCache cache)
         {
@@ -17,6 +19,11 @@
         public bool TryGetFromCache(object cacheKey, out T cachedObject)
         {
             return _cache.TryGetValue(cacheKey, out cachedObject);
+        }
+
+        public void RemoveFromCache(object cacheKey)
+        {
+            _cache.Remove(cacheKey);
         }
 
         private MemoryCacheEntryOptions SetMemoryCacheOptions()
