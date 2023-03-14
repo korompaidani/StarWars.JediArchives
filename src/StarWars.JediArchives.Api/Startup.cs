@@ -15,6 +15,7 @@ namespace StarWars.JediArchives.Api
         {
             services.AddApplicationServices();
             services.AddPersistenceServices(Configuration);
+            services.AddMemoryCache();
             AddSwagger(services);
             services.AddControllers();
             services.AddCors(options =>

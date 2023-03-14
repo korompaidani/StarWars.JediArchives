@@ -9,6 +9,6 @@
         public int EndYear { get; set; }
         public int Length => EndYear - StartYear;
         public string ImageUrl { get; set; }
-        public Image Image { get; set; }        
+        public Image Image { get; set; }
     }
 }
