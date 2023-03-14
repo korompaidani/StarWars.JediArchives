@@ -16,5 +16,9 @@
   <ItemGroup>
     <ProjectReference Include="..\StarWars.JediArchives.Domain\StarWars.JediArchives.Domain.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Contracts\Infrastructure\Cache\" />
+  </ItemGroup>
 
 </Project>

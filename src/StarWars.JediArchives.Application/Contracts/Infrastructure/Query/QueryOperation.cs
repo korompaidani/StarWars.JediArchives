@@ -1,4 +1,4 @@
-﻿namespace StarWars.JediArchives.Infrastructure.QueryParser
+﻿namespace StarWars.JediArchives.Application.Contracts.Infrastructure.Query
 {
     public record QueryOperation
     {

@@ -1,4 +1,4 @@
-﻿namespace StarWars.JediArchives.Application.Contracts.Infrastructure
+﻿namespace StarWars.JediArchives.Application.Contracts.Infrastructure.Query
 {
     public interface IQueryProcessor<T> where T : class
     {

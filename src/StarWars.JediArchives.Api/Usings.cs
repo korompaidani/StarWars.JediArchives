@@ -12,7 +12,7 @@ global using Newtonsoft.Json;
 global using Serilog;
 global using StarWars.JediArchives.Api.Middleware;
 global using StarWars.JediArchives.Application;
-global using StarWars.JediArchives.Application.Contracts.Infrastructure;
+global using StarWars.JediArchives.Application.Contracts.Infrastructure.Query;
 global using StarWars.JediArchives.Application.Exceptions;
 global using StarWars.JediArchives.Application.Features.Common.Pagination;
 global using StarWars.JediArchives.Application.Features.Timelines.Commands.CreateTimeline;

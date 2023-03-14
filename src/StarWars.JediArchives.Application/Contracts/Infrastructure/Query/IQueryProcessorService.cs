@@ -1,4 +1,4 @@
-﻿namespace StarWars.JediArchives.Application.Contracts.Infrastructure
+﻿namespace StarWars.JediArchives.Application.Contracts.Infrastructure.Query
 {
     /// <summary>
     /// This is the highest layer of incomping complex Query handling

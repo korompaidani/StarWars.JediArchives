@@ -1,4 +1,5 @@
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using StarWars.JediArchives.Application.Contracts.Infrastructure.Query;
 global using StarWars.JediArchives.Application.Exceptions;
 global using StarWars.JediArchives.Infrastructure.QueryParser;
 global using System;
