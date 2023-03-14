@@ -2,8 +2,10 @@
 global using FluentValidation;
 global using FluentValidation.Results;
 global using MediatR;
+global using Microsoft.Extensions.Caching.Memory;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
+global using StarWars.JediArchives.Application.Contracts.Infrastructure.Handler;
 global using StarWars.JediArchives.Application.Contracts.Infrastructure.Query;
 global using StarWars.JediArchives.Application.Contracts.Persistence;
 global using StarWars.JediArchives.Application.Exceptions;
@@ -21,4 +23,5 @@ global using System.Linq;
 global using System.Reflection;
 global using System.Threading;
 global using System.Threading.Tasks;
+global using StarWars.JediArchives.Application.Contracts.Infrastructure.Cache;
 global using ValidationException = StarWars.JediArchives.Application.Exceptions.ValidationException;

@@ -1,23 +1,19 @@
 ﻿namespace StarWars.JediArchives.Application.Features.Timelines.Queries.GetTimelineList
 {
-    using Microsoft.Extensions.Caching.Memory;
-
-    public class GetTimelineListQueryHandler : IRequestHandler<GetTimelineListQuery, PagedList<TimelineListDto>>
+    public class GetTimelineListQueryHandler : AbstractHandler<IEnumerable<Timeline>>, IRequestHandler<GetTimelineListQuery, PagedList<TimelineListDto>>
     {
         private const string TimelineListCacheKey = "timelineList";
 
         private readonly ITimelineRepository _timelineRepository;
         private readonly IMapper _mapper;
         private readonly IQueryProcessor<TimelineListDto> _queryProcessor;
-        private readonly IMemoryCache _cache;
         private readonly ILogger<GetTimelineListQueryHandler> _logger;
 
-        public GetTimelineListQueryHandler(ITimelineRepository timelineRepository, IMapper mapper, IQueryProcessor<TimelineListDto> queryProcessor, IMemoryCache cache, ILogger<GetTimelineListQueryHandler> logger)
+        public GetTimelineListQueryHandler(ITimelineRepository timelineRepository, IMapper mapper, IQueryProcessor<TimelineListDto> queryProcessor, IMemoryCache cache, ILogger<GetTimelineListQueryHandler> logger) : base(cache)
         {
             _timelineRepository = timelineRepository;
             _mapper = mapper;
             _queryProcessor = queryProcessor;
-            _cache = cache;
             _logger = logger;
         }
 
@@ -25,10 +21,9 @@
         {
             ProcessQueries(request);
 
-            IEnumerable<Timeline> timelineListResult = null;
+            IEnumerable<Timeline> timeListFromRepository = null;
 
-            IEnumerable<Timeline> timeListFromRepository;
-            if (_cache.TryGetValue(TimelineListCacheKey, out timeListFromRepository))
+            if (TryGetFromCache(TimelineListCacheKey, out timeListFromRepository))
             {
                 _logger.LogInformation($"{nameof(GetTimelineListQueryHandler)}.{nameof(Handle)}: {nameof(IEnumerable<Timeline>)} entries was found in cache.");
             }
@@ -37,20 +32,15 @@
                 timeListFromRepository = await _timelineRepository.ListAllAsync();
                 _logger.LogInformation($"{nameof(GetTimelineListQueryHandler)}.{nameof(Handle)}: {nameof(IEnumerable<Timeline>)} entries was not found in cache. Data are requested from the db.");
 
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(90))
-                    .SetAbsoluteExpiration(TimeSpan.FromSeconds(5400))
-                    .SetPriority(CacheItemPriority.Normal);
-
-                _cache.Set(TimelineListCacheKey, timeListFromRepository, cacheEntryOptions);
+                AddToCache(TimelineListCacheKey, timeListFromRepository);
             }
 
             bool isIgnored = false;
             CheckPaginationWasRequestedByUser(request, ref isIgnored);
 
-            timelineListResult = PagedList<Timeline>.ToPagedList((await _timelineRepository.ListAllAsync()), request.PageNumber, request.PageSize, isIgnored);
+            timeListFromRepository = PagedList<Timeline>.ToPagedList((await _timelineRepository.ListAllAsync()), request.PageNumber, request.PageSize, isIgnored);
 
-            return _mapper.Map<PagedList<TimelineListDto>>(timelineListResult);
+            return _mapper.Map<PagedList<TimelineListDto>>(timeListFromRepository);
         }
 
         private void CheckPaginationWasRequestedByUser(GetTimelineListQuery request, ref bool isIgnored)

@@ -12,8 +12,4 @@
     <ProjectReference Include="..\StarWars.JediArchives.Application\StarWars.JediArchives.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CacheService\" />
-  </ItemGroup>
-
 </Project>
